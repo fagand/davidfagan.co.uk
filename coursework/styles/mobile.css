@@ -1,0 +1,387 @@
+@charset "UTF-8";
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower|Source+Sans+Pro|Great+Vibes');
+/*END OF FONTS---------------------------------------------------------*/
+
+/* HTML */
+html {
+    background: #e6e9e9;
+    background-image: linear-gradient(270deg, rgb(230, 233, 233) 0%, rgb(216, 221, 221) 100%);
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/*END OF HTML---------------------------------------------------------*/
+
+/* NAVIGATION STYLING */
+/* Add a background color to the top navigation */
+.navigation {
+    background-color: #e6e9e9;
+    overflow: hidden;
+    margin: 0em -2em;
+    box-shadow: none;
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+/* Style the links inside the navigation bar */
+.navigation a {
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#navLabel {
+    color: black;
+    font-weight: bold;
+    border-right: 6px solid #4286f4;
+    background-color: inherit;
+    font-size: 1em;
+}
+
+/* Change the color of links on hover */
+.navigation a:hover {
+    /*background-color: #DBFF33;*/
+    background-color: white;
+    color: #4286f4;
+}
+
+/* Add an active class to highlight the current page */
+.active {
+    background-color: #4286f4;
+    color: white;
+}
+
+/* Hide the link that should open and close the navigation on small screens */
+.navigation .icon {
+    display: none;
+}
+
+/* When the screen is less than 700 pixels wide, hide all links, except for the Navigation label. Show the link that contains should open and close the navigation (.icon) */
+@media screen and (max-width: 700px) {
+    .navigation a:not(:first-child) {
+        display: none;
+    }
+
+    .navigation a.icon {
+        float: right;
+        display: block;
+        list-style-type: none;
+    }
+}
+
+/* The "responsive" class is added to the navigation with JavaScript when the user clicks on the icon. This class makes the navigation look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 700px) {
+    .navigation.responsive {
+        position: fixed;
+        width: 95vw;
+    }
+
+    .navigation.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .navigation.responsive a {
+        float: none;
+        display: block;
+        text-align: center;
+    }
+}
+
+i {
+    font-size: 15px !important;
+}
+
+/*END OF NAVIGATION---------------------------------------------------------*/
+
+/* COLUMNS *Source: https://codepen.io/Cheesetoast/pen/KFAaq */
+.columns {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.column {
+    flex: 1;
+    margin: 2px;
+    padding: 10px;
+    border-top: 6px solid black;
+    border-bottom: 6px solid #4286f4;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    position: absolute;
+    overflow: auto;
+    max-height: 70%;
+}
+
+.column:nth-last-of-type(2) {
+    flex: 3;
+}
+
+#left {}
+
+#unimain {
+    overflow-x: hidden;
+}
+
+#unimain a {
+    text-overflow: ellipsis;
+}
+
+#right {
+    height: 30vh;
+}
+
+@media screen and (max-width: 980px) {
+    .columns .column {
+        margin-bottom: 5px;
+        flex-basis: 40%;
+    }
+
+    .columns .column:nth-last-child(2) {
+        margin-right: 0;
+    }
+
+    .columns .column:last-child {
+        flex-basis: 100%;
+        margin: 0;
+    }
+
+    #left {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .columns .column {
+        flex-basis: 100%;
+        margin: 0 0 5px 0;
+    }
+}
+
+/*END OF COLUMNS---------------------------------------------------------*/
+
+/* HEADER */
+header {
+    padding: 30px;
+    text-align: center;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,207cca+51,7db9e8+100;Blue+Gloss+Default */
+    background: #1e5799;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e5799', endColorstr='#7db9e8', GradientType=0);
+    /* IE6-9 */
+    color: white;
+    font-size: 7vw;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+}
+
+header a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+#anim8{
+        font-family: 'Gamja Flower', cursive;
+    text-transform: capitalize;
+}
+#uniHeader{
+        font-family: 'Source Sans Pro', sans-serif;
+}
+
+/*END OF HEADER---------------------------------------------------------*/
+
+/* BODY */
+body {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+    color: #545454;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 95%;
+    padding: 2em 2em 4em;
+    position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #222;
+    font-weight: 600;
+    line-height: 1.3;
+    font-size: 1em;
+}
+
+h2 {
+    margin-top: .5em;
+}
+
+a {
+    color: #4286f4;
+}
+
+b,
+strong {
+    font-weight: 600;
+}
+
+samp {
+    display: none;
+}
+
+img {
+    animation: colorize 2s cubic-bezier(0, 0, .78, .36) 1;
+    background: transparent;
+    border: 10px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    display: block;
+    margin: 1.3em auto;
+    max-width: 95%;
+}
+
+input[type=search] {
+    border: 2px solid black;
+}
+
+input[type=submit] {
+    background-color: #4286f4;
+    color: white;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+input[type=submit]:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ol {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin 5px;
+}
+
+li {
+    margin: 10px 0;
+    border-left: 6px solid lightgrey;
+    padding-left: 10px;
+}
+
+li:hover {
+    color: black;
+    cursor: pointer;
+    border-left: 6px solid black;
+}
+
+li a:hover {
+    color: black;
+}
+
+#details {
+    color: black;
+}
+#tasks{
+    color: black;
+}
+#quals{
+    color: black;
+}
+#signature{
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.5em;
+}
+/*END OF BODY---------------------------------------------------------*/
+
+/* FOOTER */
+.footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #4286f4;
+    color: white;
+    text-align: center;
+}
+
+.footer a {
+    color: white;
+}
+
+.footer a:hover {
+    color: greenyellow;
+}
+
+/*END OF FOOTER---------------------------------------------------------*/
+
+/* STICKY HEADER */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    color: crimson;
+}
+
+.sticky + .content {
+    padding-top: 102px;
+}
+
+/*END OF STICKY HEADER ------------------------------------------------*/
+
+/* TABLES */
+table {
+    table-layout: fixed;
+    font-size: 1em;
+    width: 100%;
+    word-break: break-word;
+}
+
+td {
+    border-bottom: 2px solid lightgrey;
+    padding: 10px;
+}
+
+/*END OF TABLES---------------------------------------------------------*/

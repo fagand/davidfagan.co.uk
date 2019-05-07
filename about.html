@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+	<title>David Fagan - About Me</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script>
+		$(function() {
+			var date = new Date();
+			var year = date.getFullYear();
+			var age = year - 1990;
+
+			document.getElementById("age").innerHTML = age;
+		})
+	</script>
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-3755930033410564",
+			enable_page_level_ads: true
+		});
+	</script>
+</head>
+
+<body class="is-preload">
+
+	<!-- Header -->
+	<header id="header">
+		<a href="index.html" class="title">davidfagan.co.uk</a>
+		<nav>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="about.html" class="active">About Me</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">About Me</h1>
+				<span class="image left"><img src="images/david.png" alt="" /></span>
+				<p>I am <a id="age"></a> years old, I have always had a passion for computers and technology. When I was 16, I created a website from scratch. I designed the layout, sliced and scripted it etc. the website went on to have a period of great popularity which only increased my passion. I created, managed and maintained the site myself for over ten years and still have it today as homage to the past. In that time, the site progressed and improved with aim to keep it modern and appealing. <br>My passion for technology has most recently led me into further education to gain qualifications with desire to have a career in the computing industry. I started studying HNC Computing in February 2017 at New College Lanarkshire, Cumbernauld. While on this course I developed an appetite for software development which led me to a new campus; Motherwell where I studied HND Software Development. I'm on course to graduate this year from BSc Computing programme at Glasgow Caledonian University. <br>Prior to this education journey I worked for the Headlam, the biggest flooring distributor in Europe. I worked there in various roles, before departing I was stock controller for their Glasgow branch. I worked for there for more than 7 years which allowed me to develop as a person and an employee. During this time, I matured gaining valuable work skills that I can transfer to the computing industry.</p>
+				<p>I have experience in two object orientated programming languages, Java and C#. As well as this I have built on my previous experience of HTML, adding JavaScript and jQuery experience. <br>I have 8 years of work experience with customer relations and team working as can be seen in the below CV.</p>
+				<p>Curriculum vitae: <br><img src="images/cv.png" width="250" onclick="onClick(this)" alt="David Fagan CV"></p>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Modal for full size images on click-->
+	<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+		<span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+		<div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+			<img id="img01" class="w3-image">
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; David Fagan. All rights reserved.</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script>
+		function onClick(element) {
+			document.getElementById("img01").src = element.src;
+			document.getElementById("modal01").style.display = "block";
+			var captionText = document.getElementById("caption");
+			captionText.innerHTML = element.alt;
+		}
+	</script>
+
+</body></html>
