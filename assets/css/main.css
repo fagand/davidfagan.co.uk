@@ -4102,7 +4102,8 @@ body.is-preload #sidebar nav ul li {
 
 .df-padding-64 {
 	padding-top: 64px !important;
-	padding-bottom: 64px !important
+	padding-bottom: 64px !important;
+	max-width: 90vw;
 }
 
 .df-image {
