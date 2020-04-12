@@ -22,6 +22,7 @@
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -59,11 +60,11 @@
                 <h1>davidfagan.co.uk</h1>
                 <p>Welcome to the portfolio of David Fagan.</p>
                 <ul>
-                    <li>Development projects <a href="#projects">here</a>. </li>
+                    <li>Development projects <a href="#projects" class="scrolly">here</a>. </li>
                     <li>Graphic Design projects <a href="designs.html">here</a>. </li>
                     <li>Photography <a href="photos.html">here</a>. </li>
                     <li>Videography <a href="videos.html">here</a>. </li>
-                    <li>Contact form & social media <a href="#contact">here</a>.</li>
+                    <li>Contact form & social media <a href="#contact" class="scrolly">here</a>.</li>
                 </ul>
                 <ul class="actions">
                     <li><a href="#about" class="button scrolly">Click here to learn more</a></li>
@@ -163,7 +164,7 @@
                 <p>Use the contact form below to send me an email.</p>
                 <div class="split style1">
                     <section>
-                        <form action="/action_page.php" method="post">
+                        <form action="action_page.php" method="post">
                             <div class="fields">
                                 <div class="field half">
                                     <label for="name">Name</label>
@@ -176,6 +177,8 @@
                                 <div class="field">
                                     <label for="message">Message</label>
                                     <textarea name="Message" id="message" rows="5"></textarea>
+                                <br>
+                                    <div class="g-recaptcha" data-sitekey="6LflpOgUAAAAANkiX_QNPD7xz8fPmDIUGehCmwtO"></div>
                                 </div>
                             </div>
                             <ul class="actions">
