@@ -11,3 +11,4 @@ images/.DS_Store
 .idea/webServers.xml
 .idea/workspace.xml
 action_page.php
+.DS_Store
