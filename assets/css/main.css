@@ -1,15 +1,16 @@
+@import url(font-awesome.min.css);
 :root {
     color-scheme: light dark;
-    --color312450: #312450;
+    --color312450: #312450; /* nav */
     --color5e42a6: #5e42a6; /* main bg */
-    --colorb74e91: #b74e91;
+    --colorb74e91: #b74e91; /* projects section */
     --color493382: #493382; /* footer */
-    --color5052b5: #5052b5;
+    --color5052b5: #5052b5; /* alternate sections */
     --color3e4094: #3e4094;
     --color953d75: #953d75;
     --purple9percent: rgba(49, 36, 80, 0.9);
-    --color261c3e: #2613c3;
-    --color3c2c62: #3c2c62;
+    --color261c3e: #2613c3; /* additional pages footer */
+    --color3c2c62: #3c2c62; /* nav link highlight */
     --white: #ffffff;
     --black: #000;
     --white015percent: rgba(255, 255, 255, 0.15);
@@ -21,17 +22,16 @@
     --colorb74e91: #383838; /* projects section */
     --color493382: #202020; /* footer */
     --color5052b5: #202020; /* alternate sections */
-    --color3e4094: red;
-    --color953d75: red;
-    --purple9percent: rgba(0, 48, 0, 0.7); 
+    --color3e4094: #3e4094;
+    --color953d75: #953d75;
+    --purple9percent: rgba(49, 36, 80, 0.9); 
     --color261c3e: #202020; /* additional pages footer */
-    --color3c2c62: #004800; /* nav link highlight */
+    --color3c2c62: #5e42a7; /* nav link highlight | green = #004800 */
     --white: #ffffff;
     --black: #000;
     --white015percent: rgba(255, 255, 255, 0.5);
 }
 }
-@import url(font-awesome.min.css);
 
 /*
 	Hyperspace by HTML5 UP
@@ -2682,11 +2682,11 @@ input[type="radio"] + label:before {
 }
 
 .wrapper.style3 .icon.major:before {
-	color: red;
+	color: var(--colorb74e91);
 }
 
 .wrapper.style3-alt .icon.major:before {
-	color: red;
+	color: var(--color953d75);
 }
 
 /* Image */
@@ -3923,10 +3923,10 @@ body.is-ie #sidebar > .inner {
 }
 
 #sidebar nav a:after {
-	background-image: -moz-linear-gradient(to right, #002800, white);
-	background-image: -webkit-linear-gradient(to right, #002800, white);
-	background-image: -ms-linear-gradient(to right, #002800, white);
-	background-image: linear-gradient(to right, #002800, white);
+	background-image: -moz-linear-gradient(to right, #5e42a6, white);
+	background-image: -webkit-linear-gradient(to right, #5e42a6, white);
+	background-image: -ms-linear-gradient(to right, #5e42a6, white);
+	background-image: linear-gradient(to right, #5e42a6, white);
 	-moz-transition: max-width 0.2s ease;
 	-webkit-transition: max-width 0.2s ease;
 	-ms-transition: max-width 0.2s ease;
