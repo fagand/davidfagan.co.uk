@@ -4035,7 +4035,10 @@ body.is-preload #sidebar nav ul li {
 
 #intro {
 	background-attachment: fixed;
-	/* orignal bg code
+	/* added this in incase the .svg file is required by some browsers */
+    background-image: url("images/intro.svg");
+    
+    /* orignal bg code
     background-image: url("images/intro.svg");
     background-position: top right;
 	background-repeat: no-repeat;
