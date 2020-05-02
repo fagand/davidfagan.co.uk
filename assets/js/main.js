@@ -4,39 +4,39 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 function changeWindowScheme() {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
         console.log("User has changed colour scheme");
         $('.spotlights > section')
-        .each(function () {
-            var dm = "dark"; //Variable to store the word dark to add to url. Had to create a darkimages folder.
-            var $this = $(this),
-                $image = $this.find('.image'),
-                $img = $image.find('img'),
-                x;
-U
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            .each(function () {
+                var dm = "dark"; //Variable to store the word dark to add to url. Had to create a darkimages folder.
+                var $this = $(this),
+                    $image = $this.find('.image'),
+                    $img = $image.find('img'),
+                    x;
 
-                // Assign image.
-                $image.css('background-image', 'url(' + dm + $img.attr('src') + ')');
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
 
-                // Set background position.
-                if (x = $img.data('position'))
-                    $image.css('background-position', x);
+                    // Assign image.
+                    $image.css('background-image', 'url(' + dm + $img.attr('src') + ')');
 
-                // Hide <img>.
-                $img.hide();
-            } else {
-                // Assign image.
-                $image.css('background-image', 'url(' + $img.attr('src') + ')');
+                    // Set background position.
+                    if (x = $img.data('position'))
+                        $image.css('background-position', x);
 
-                // Set background position.
-                if (x = $img.data('position'))
-                    $image.css('background-position', x);
+                    // Hide <img>.
+                    $img.hide();
+                } else {
+                    // Assign image.
+                    $image.css('background-image', 'url(' + $img.attr('src') + ')');
 
-                // Hide <img>.
-                $img.hide();
-            }
-        });
+                    // Set background position.
+                    if (x = $img.data('position'))
+                        $image.css('background-position', x);
+
+                    // Hide <img>.
+                    $img.hide();
+                }
+            });
     })
 }
 (function ($) {
