@@ -5,15 +5,42 @@
 */
 function changeWindowScheme() {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        /* 
-        I think this is where I need the image change to happen.
-        The same change that happens on lines 158 - 188
-        */
-        console.log('changed!!');
+        console.log("User has changed colour scheme");
+        $('.spotlights > section')
+        .each(function () {
+            var dm = "dark"; //Variable to store the word dark to add to url. Had to create a darkimages folder.
+            var $this = $(this),
+                $image = $this.find('.image'),
+                $img = $image.find('img'),
+                x;
+U
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+
+                // Assign image.
+                $image.css('background-image', 'url(' + dm + $img.attr('src') + ')');
+
+                // Set background position.
+                if (x = $img.data('position'))
+                    $image.css('background-position', x);
+
+                // Hide <img>.
+                $img.hide();
+            } else {
+                // Assign image.
+                $image.css('background-image', 'url(' + $img.attr('src') + ')');
+
+                // Set background position.
+                if (x = $img.data('position'))
+                    $image.css('background-position', x);
+
+                // Hide <img>.
+                $img.hide();
+            }
+        });
     })
 }
 (function ($) {
-
+changeWindowScheme();
     var $window = $(window),
         $body = $('body'),
         $sidebar = $('#sidebar');
@@ -167,7 +194,6 @@ function changeWindowScheme() {
 
                 // Assign image.
                 $image.css('background-image', 'url(' + dm + $img.attr('src') + ')');
-                console.log(dm + $img.attr('src') + ')');
 
                 // Set background position.
                 if (x = $img.data('position'))
@@ -207,5 +233,4 @@ function changeWindowScheme() {
 
             }
         });
-
 })(jQuery);
