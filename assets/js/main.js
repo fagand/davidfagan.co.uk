@@ -40,7 +40,7 @@ function changeWindowScheme() {
     })
 }
 (function ($) {
-changeWindowScheme();
+    changeWindowScheme();
     var $window = $(window),
         $body = $('body'),
         $sidebar = $('#sidebar');
@@ -233,4 +233,149 @@ changeWindowScheme();
 
             }
         });
+    
+// Code for new photo viewer 
+    
+    $main = $('#main'),
+
+        settings = {
+
+            // Keyboard shortcuts.
+            keyboardShortcuts: {
+
+                // If true, enables scrolling via keyboard shortcuts.
+                enabled: true,
+
+                // Sets the distance to scroll when using the left/right arrow keys.
+                distance: 50
+
+            }
+        };
+
+    // Items.
+
+    // Assign a random "delay" class to each thumbnail item.
+    $('.item.thumb').each(function () {
+        $(this).addClass('delay-' + Math.floor((Math.random() * 6) + 1));
+    });
+
+    // IE: Fix thumbnail images.
+    if (browser.name == 'ie')
+        $('.item.thumb').each(function () {
+
+            var $this = $(this),
+                $img = $this.find('img');
+
+            $this
+                .css('background-image', 'url(' + $img.attr('src') + ')')
+                .css('background-size', 'cover')
+                .css('background-position', 'center');
+
+            $img
+                .css('opacity', '0');
+
+        });
+
+    // Poptrox.
+    $main.poptrox({
+        onPopupOpen: function () {
+            $body.addClass('is-poptrox-visible');
+        },
+        onPopupClose: function () {
+            $body.removeClass('is-poptrox-visible');
+        },
+        overlayColor: '#1a1f2c',
+        overlayOpacity: 0.75,
+        popupCloserText: '',
+        popupLoaderText: '',
+        selector: '.item.thumb a.pimage',
+        caption: function ($a) {
+            return $a.attr('title');
+        },
+        usePopupDefaultStyling: false,
+        usePopupCloser: false,
+        usePopupCaption: true,
+        usePopupNav: true,
+        windowMargin: 50
+    });
+
+    breakpoints.on('>small', function () {
+        $main[0]._poptrox.windowMargin = 50;
+    });
+
+    breakpoints.on('<=small', function () {
+        $main[0]._poptrox.windowMargin = 0;
+    });
+
+    // Keyboard shortcuts.
+    if (settings.keyboardShortcuts.enabled)
+        (function () {
+
+            $window
+
+                // Keypress event.
+                .on('keydown', function (event) {
+
+                    var scrolled = false;
+
+                    if ($body.hasClass('is-poptrox-visible'))
+                        return;
+
+                    switch (event.keyCode) {
+
+                        // Left arrow.
+                        case 37:
+                            $main.scrollLeft($main.scrollLeft() - settings.keyboardShortcuts.distance);
+                            scrolled = true;
+                            break;
+
+                            // Right arrow.
+                        case 39:
+                            $main.scrollLeft($main.scrollLeft() + settings.keyboardShortcuts.distance);
+                            scrolled = true;
+                            break;
+
+                            // Page Up.
+                        case 33:
+                            $main.scrollLeft($main.scrollLeft() - $window.width() + 100);
+                            scrolled = true;
+                            break;
+
+                            // Page Down, Space.
+                        case 34:
+                        case 32:
+                            $main.scrollLeft($main.scrollLeft() + $window.width() - 100);
+                            scrolled = true;
+                            break;
+
+                            // Home.
+                        case 36:
+                            $main.scrollLeft(0);
+                            scrolled = true;
+                            break;
+
+                            // End.
+                        case 35:
+                            $main.scrollLeft($main.width());
+                            scrolled = true;
+                            break;
+
+                    }
+
+                    // Scrolled?
+                    if (scrolled) {
+
+                        // Prevent default.
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        // Stop link scroll.
+                        $main.stop();
+
+                    }
+
+                });
+
+        })();
+
 })(jQuery);
