@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-    <title>David Fagan - Videos</title>
+    <title>David Fagan - Photography</title>
     <meta charset="utf-8" />
     <!-- Meta Data -->
     <meta property="og:site_name" content="davidfagan.co.uk">
@@ -16,8 +16,7 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://www.davidfagan.co.uk/images/david.png">
     <meta property="og:description" content="Professional portfolio of designer and developer David John Fagan.">
-    <meta name="keywords"
-        content="David Fagan, David John Fagan, fagan-1.com, davidfagan.co.uk, @iamfagan, HTML, CSS, JavaScript, Fagan, David, Glasgow, Scotland, Airdrie">
+    <meta name="keywords" content="David Fagan, David John Fagan, fagan-1.com, davidfagan.co.uk, @iamfagan, HTML, CSS, JavaScript, Fagan, David, Glasgow, Scotland, Airdrie">
     <meta name="author" content="David Fagan">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
@@ -32,6 +31,8 @@
     <!-- Style -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link href="assets/css/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="assets/css/featherlight.gallery.min.css" type="text/css" rel="stylesheet" />
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -40,6 +41,7 @@
             google_ad_client: "ca-pub-3755930033410564",
             enable_page_level_ads: true
         });
+
     </script>
 </head>
 
@@ -54,54 +56,31 @@
                 <li><a href="about.html">About Me</a></li>
                 <li><a href="designs.html">Graphix</a></li>
                 <li><a href="photos.html">Photos</a></li>
-                <li><a href="videos.html" class="active">Videos</a></li>
+                <li><a href="logos.html" class="active">Logos</a></li>
+                <li><a href="videos.html">Videos</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Wrapper -->
     <div id="wrapper">
-
-        <!-- Main -->
         <section data-featherlight-gallery data-featherlight-filter="a" id="main" class="wrapper">
+            <!-- Main -->
             <div class="inner">
-                <h1 class="major">YouTube Videos</h1>
-                <p>All YouTube videos can be seen <a href="https://www.youtube.com/channel/UCjzF_S5FH0IJhnUIpYIl6HA" target="_blank">here</a>. Below
-                    are a select few.</p>
-                <h2>Kevin Watt Goals Compilation</h2>
-                <div>
-                    <iframe width="560" height="315" id="contentFit" src="https://www.youtube.com/embed/2tI5xX7bIKk" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                </div>
-                <h2>Canada 2018</h2>
-                <div>
-                    <iframe width="560" height="315" id="contentFit"
-                        src="https://www.youtube.com/embed/videoseries?list=PLeB2CrafS2CsrmRj3qjyQ5T5LoPOtm_Fb"
-                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                </div>
-                <h2>Motorbike Rides</h2>
-                <div>
-                    <iframe width="560" height="315" id="contentFit"
-                        src="https://www.youtube.com/embed/videoseries?list=PLeB2CrafS2CuDlEzRidjSsBrUasL2CY95"
-                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                    <iframe width="560" height="315" id="contentFit"
-                        src="https://www.youtube.com/embed/videoseries?list=PLeB2CrafS2Ct4ntHICBkDIv3PQo_koaeQ"
-                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                </div>
-                <h2>Thailand 2014</h2>
-                <div>
-                    <iframe width="560" height="315" id="contentFit"
-                        src="https://www.youtube.com/embed/videoseries?list=PLeB2CrafS2Ctx6IdeR_Q5usjw1Wt7R2WS"
-                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                <h1 class="major">Logos</h1>
+                <div class="photorow">
+                    <div class="column">
+                        <a class="gallery image" href="images/logos/1.png"><img src="images/logos/1.png"></a>
+                        <a class="gallery image" href="images/logos/2.png"><img src="images/logos/2.png"></a>
+                        <a class="gallery image" href="images/logos/3.png"><img src="images/logos/3.png"></a>
+                        <a class="gallery image" href="images/logos/4.png"><img class="lazy" data-src="images/logos/4.png"></a>
+                        <a class="gallery image" href="images/logos/5.png"><img class="lazy" data-src="images/logos/5.png"></a>
+                        <a class="gallery image" href="images/logos/6.jpeg"><img class="lazy" data-src="images/logos/6.jpeg"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
     </div>
 
     <!-- Footer -->
@@ -124,12 +103,29 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/detect_swipe/2.1.1/jquery.detect_swipe.min.js"></script>
+    <script src="/assets/js/lazyload.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $('a.gallery').featherlightGallery({
+            previousIcon: '«',
+            nextIcon: '»',
+            galleryFadeIn: 300,
+            openSpeed: 300
+        });
+
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- Vertical ad -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3755930033410564" data-ad-slot="8750553256"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3755930033410564" data-ad-slot="8750553256" data-ad-format="auto" data-full-width-responsive="true"></ins>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
+
     </script>
 </body>
 

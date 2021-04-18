@@ -4211,8 +4211,12 @@ a {
 }
 
 .column {
-    flex: 33%;
-    max-width: 33%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column > * {
+    flex: 1 1 15em;
     padding: 0 4px;
 }
 
@@ -4225,8 +4229,8 @@ a {
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
     .column {
-        flex: 50%;
-        max-width: 50%;
+        /* flex: 50%;
+        max-width: 50%; */
     }
 }
 
