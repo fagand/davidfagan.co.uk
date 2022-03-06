@@ -2793,6 +2793,10 @@ input[type="radio"] + label:before {
     filter: grayscale(0%);
 }
 
+span#profilePic {
+    shape-outside: circle(50%);
+}
+
 /* List */
 
 ol {
