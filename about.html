@@ -1,136 +1,164 @@
 <!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html lang="en">
-
 <head>
-    <title>David Fagan - About Me</title>
-    <meta charset="utf-8" />
-    <!-- Meta Data -->
-    <meta property="og:site_name" content="davidfagan.co.uk">
-    <meta property="og:title" content="davidfagan.co.uk">
-    <meta property="og:url" content="https://www.davidfagan.co.uk">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://www.davidfagan.co.uk/images/david.png">
-    <meta property="og:description" content="Professional portfolio of designer and developer David John Fagan.">
-    <meta name="keywords" content="David Fagan, David John Fagan, fagan-1.com, davidfagan.co.uk, @iamfagan, HTML, CSS, JavaScript, Fagan, David, Glasgow, Scotland, Airdrie">
-    <meta name="author" content="David Fagan">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5848a0">
-    <link rel="shortcut icon" href="/favicon/favicon.ico">
-    <meta name="msapplication-TileColor" content="#5848a0">
-    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Style -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript>
-        <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — David Fagan</title>
+  <meta name="description" content="David Fagan — web developer, graphic designer and photographer based in Glasgow, Scotland. Graduate of Glasgow Caledonian University.">
+  <meta name="author" content="David Fagan">
+  <meta property="og:title" content="About — David Fagan">
+  <meta property="og:url" content="https://www.davidfagan.co.uk/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.davidfagan.co.uk/images/david.png">
+  <meta name="theme-color" content="#06060d">
 
-    <script>
-        $(function() {
-            var date = new Date();
-            var year = date.getFullYear();
-            var age = year - 1990;
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=3ewjOvAnno">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=3ewjOvAnno">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=3ewjOvAnno">
+  <link rel="manifest" href="/favicon/site.webmanifest?v=3ewjOvAnno">
+  <link rel="shortcut icon" href="/favicon/favicon.ico?v=3ewjOvAnno">
 
-            document.getElementById("age").innerHTML = age;
-        })
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    </script>
-    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-3755930033410564",
-            enable_page_level_ads: true
-        });
+  <link rel="stylesheet" href="assets/css/2026.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
 
-    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/2026.js" defer></script>
 </head>
 
-<body class="is-preload">
+<body>
 
-    <!-- Header -->
-    <header id="header">
-        <a href="index.html" class="title">davidfagan.co.uk</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About Me</a></li>
-                <li><a href="designs.html">Graphix</a></li>
-                <li><a href="photos.html">Photos</a></li>
-                <li><a href="videos.html">Videos</a></li>
-            </ul>
-        </nav>
-    </header>
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <span class="nav__logo-name">David Fagan</span>
+      <span class="nav__logo-dot" aria-hidden="true"></span>
+    </a>
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="/#about" aria-current="page">About</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/#book">Book</a></li>
+      <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <!-- Wrapper -->
-    <div id="wrapper">
 
-        <!-- Main -->
-        <section id="main" class="wrapper">
-            <div class="inner">
-                <h1 class="major">About Me</h1>
-                <span class="image left" id="profilePic"><img src="images/david.png" alt="" /></span>
-                <p>I am <v id="age"></v> years old. I have always had a passion for computers and technology. When I was around 15, I created my <a href="https://fagan-1.com">first website</a>. I used my graphic design skills to design a layout, I then sliced and coded the layout, secured hosting and finally uploaded the site to the world wide web. The website went on to have a period of great popularity which only increased my desire to make it last. The site today pays homage to the past.<br> In the past, the sites functionality progressed and design was improved with an aim to keep it modern and appealing.<br>My passion for technology led me into further education where I graduated as BSc of Computing from Glasgow Caledonian University.
-                <p>I have experience in two object orientated programming languages, Java and C#. As well as this I have built on my previous experience of HTML, adding JavaScript and jQuery experience. <br>I have many years of work experience with customer relations and team working. </p>
-                <p>My work history and skills can be viewed on my CV, please contact me using one of the <a href="index.html#contact"> contact options</a> to request my CV.</p>
-            </div>
-        </section>
+<!-- ── Page hero ─────────────────────────────────────────── -->
+<section class="page-hero">
+  <div class="page-hero__bg" aria-hidden="true"></div>
+  <div class="container">
+    <a href="/" class="page-back">Home</a>
+    <span class="page-hero__label">About</span>
+    <h1 class="page-hero__heading reveal-up">Hi, I'm David.</h1>
+    <p class="page-hero__sub reveal-up">
+      Web developer, graphic designer &amp; photographer based in Glasgow, Scotland.
+      I've been building things on the internet since 2006.
+    </p>
+  </div>
+</section>
+
+
+<!-- ── About content ─────────────────────────────────────── -->
+<section class="about-page section" id="about">
+  <div class="container">
+    <div class="about-page__grid">
+
+      <div class="about-page__text">
+        <p class="about-page__body reveal-up">
+          I'm <span id="age"></span> years old and I've always had a passion for computers and technology.
+          When I was around 15, I built my <a href="https://fagan-1.com" target="_blank" rel="noopener">first website</a> — I designed the layout,
+          sliced and coded it, secured hosting, and launched it. The site went on to have a period of great
+          popularity, which only deepened my interest in the web.
+        </p>
+        <p class="about-page__body reveal-up">
+          That passion took me into further education where I graduated with a BSc in Computing from
+          Glasgow Caledonian University. Since then I've continued building websites professionally
+          and independently, always keeping a close eye on what's new in the industry.
+        </p>
+        <p class="about-page__body reveal-up">
+          Alongside development, I've always had a creative side. Graphic design came early — making
+          layouts and signatures for web communities as a teenager. Photography came later and has
+          grown into something I take seriously, whether it's landscapes, events, or portraits.
+        </p>
+        <p class="about-page__body reveal-up">
+          I have experience in Java and C#, and have built extensively on my web foundations with
+          JavaScript, jQuery, PHP, and modern CSS. I care about the details — clean code, fast load
+          times, and experiences that actually work on every device.
+        </p>
+        <p class="about-page__body reveal-up">
+          My work history and full CV are available on request —
+          <a href="/#contact">get in touch</a> and I'll send it over.
+        </p>
+        <div class="hero__actions reveal-up" style="margin-top: 2rem;">
+          <a href="/services.html" class="btn btn--primary">See my services</a>
+          <a href="/#contact" class="btn btn--ghost">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <div class="about-page__img-wrap">
+          <img src="images/david.png" alt="David Fagan" loading="lazy">
+        </div>
+      </div>
 
     </div>
+  </div>
+</section>
 
-    <!-- Modal for full size images on click-->
-    <div id="modal01" class="df-modal df-black" onclick="this.style.display='none'">
-        <span class="df-button df-large df-black df-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
-        <div class="df-modal-content df-animate-zoom df-center df-transparent df-padding-64">
-            <img id="img01" class="df-image">
-        </div>
+
+<!-- ── Skills ─────────────────────────────────────────────── -->
+<section class="skills section">
+  <div class="container">
+    <h2 class="skills__heading reveal-up">Skills &amp; tools</h2>
+    <div class="skills__tags reveal-up">
+      <span class="skill-tag">HTML5</span>
+      <span class="skill-tag">CSS3 / SASS</span>
+      <span class="skill-tag">JavaScript</span>
+      <span class="skill-tag">jQuery</span>
+      <span class="skill-tag">PHP</span>
+      <span class="skill-tag">Java</span>
+      <span class="skill-tag">C#</span>
+      <span class="skill-tag">Git / GitHub</span>
+      <span class="skill-tag">Responsive Design</span>
+      <span class="skill-tag">Adobe Photoshop</span>
+      <span class="skill-tag">Adobe Illustrator</span>
+      <span class="skill-tag">Photography</span>
+      <span class="skill-tag">Lightroom</span>
+      <span class="skill-tag">Video Editing</span>
+      <span class="skill-tag">SEO</span>
+      <span class="skill-tag">Web Performance</span>
     </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer id="footer" class="wrapper alt">
-        <div class="inner">
-            <ul class="menu">
-                <li>&copy; David Fagan. All rights reserved.</li>
-                <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-                <li><a href="/assets/docs/cookies/">Cookie Policy</a></li>
-                <li><a href="/assets/docs/privacy/">Privacy Policy</a></li>
-            </ul>
-        </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script>
-        function onClick(element) {
-            document.getElementById("img01").src = element.src;
-            document.getElementById("modal01").style.display = "block";
-            var captionText = document.getElementById("caption");
-            captionText.innerHTML = element.alt;
-        }
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <p class="footer__name">David Fagan</p>
+      <p class="footer__copy">&copy; <span id="footerYear"></span> davidfagan.co.uk &middot; Glasgow, Scotland</p>
+      <nav class="footer__links" aria-label="Footer navigation">
+        <a href="https://github.com/davidfagan" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="assets/docs/privacy/index.html">Privacy</a>
+        <a href="assets/docs/cookies/index.html">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
 
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Vertical ad -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3755930033410564" data-ad-slot="8750553256" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+<script>
+  // Age calculation
+  document.getElementById('age').textContent = new Date().getFullYear() - 1990;
+</script>
 
-    </script>
 </body>
-
 </html>

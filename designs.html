@@ -1,262 +1,226 @@
 <!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html lang="en">
-
 <head>
-    <title>David Fagan - Graphic Work</title>
-    <meta charset="utf-8" />
-    <!-- Meta Data -->
-    <meta property="og:site_name" content="davidfagan.co.uk">
-    <meta property="og:title" content="davidfagan.co.uk">
-    <meta property="og:url" content="https://www.davidfagan.co.uk">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://www.davidfagan.co.uk/images/david.png">
-    <meta property="og:description" content="Professional portfolio of designer and developer David John Fagan.">
-    <meta name="keywords" content="David Fagan, David John Fagan, fagan-1.com, davidfagan.co.uk, @iamfagan, HTML, CSS, JavaScript, Fagan, David, Glasgow, Scotland, Airdrie">
-    <meta name="author" content="David Fagan">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5848a0">
-    <link rel="shortcut icon" href="/favicon/favicon.ico">
-    <meta name="msapplication-TileColor" content="#5848a0">
-    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Style -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link href="assets/css/featherlight.min.css" type="text/css" rel="stylesheet" />
-    <link href="assets/css/featherlight.gallery.min.css" type="text/css" rel="stylesheet" />
-    <noscript>
-        <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-3755930033410564",
-            enable_page_level_ads: true
-        });
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Graphic Design — David Fagan</title>
+  <meta name="description" content="Graphic design portfolio of David Fagan — brand identities, logos, digital art, and more.">
+  <meta name="author" content="David Fagan">
+  <meta property="og:title" content="Graphic Design — David Fagan">
+  <meta property="og:url" content="https://www.davidfagan.co.uk/designs.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.davidfagan.co.uk/images/designs/new/2.png">
+  <meta name="theme-color" content="#06060d">
 
-    </script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=3ewjOvAnno">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=3ewjOvAnno">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=3ewjOvAnno">
+  <link rel="manifest" href="/favicon/site.webmanifest?v=3ewjOvAnno">
+  <link rel="shortcut icon" href="/favicon/favicon.ico?v=3ewjOvAnno">
+
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+  <!-- GLightbox — modern lightbox, replaces Featherlight (no jQuery needed) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+
+  <link rel="stylesheet" href="assets/css/2026.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+  <script src="assets/js/2026.js" defer></script>
+  <script defer>
+    window.addEventListener('load', function () {
+      if (typeof GLightbox !== 'undefined') {
+        GLightbox({
+          selector: '.glightbox',
+          touchNavigation: true,
+          loop: true,
+          zoomable: true,
+          draggable: true,
+        });
+      }
+    });
+  </script>
 </head>
 
-<body class="is-preload">
+<body>
 
-    <!-- Header -->
-    <header id="header">
-        <a href="index.html" class="title">davidfagan.co.uk</a>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Me</a></li>
-                <li><a href="designs.html" class="active">Graphix</a></li>
-                <li><a href="photos.html">Photos</a></li>
-                <li><a href="logos.html">Logos</a></li>
-                <li><a href="videos.html">Videos</a></li>
-            </ul>
-        </nav>
-    </header>
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <span class="nav__logo-name">David Fagan</span>
+      <span class="nav__logo-dot" aria-hidden="true"></span>
+    </a>
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/#work" aria-current="page">Work</a></li>
+      <li><a href="/#book">Book</a></li>
+      <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <!-- Wrapper -->
-    <div id="wrapper">
 
-        <!-- Main -->
-        <section data-featherlight-gallery data-featherlight-filter="a" id="main" class="wrapper">
-            <div class="inner">
-                <h1 class="major">Graphic Work</h1>
-                <p>Some old and some new work. For the old images; in the past I would create them for other people to display on web forums and their social media. </p>
-                <div style="text-align: center" class="column">
-                    <a class="gallery image" href="images/designs/new/2.png" id="contentFit">
-                        <img src="images/designs/new/2.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/new/3.png" id="contentFit">
-                        <img src="images/designs/new/3.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/new/4.png" id="contentFit">
-                        <img src="images/designs/new/4.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/new/5.png" id="contentFit">
-                        <img src="images/designs/new/5.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/new/6.png" id="contentFit">
-                        <img src="images/designs/new/6.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/new/7.png" id="contentFit">
-                        <img src="images/designs/new/7.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/new/20.png" id="contentFit">
-                        <img src="images/designs/new/20.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/LightBlue_LilWayne.png" id="contentFit">
-                        <img src="images/designs/LightBlue_LilWayne.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/PrinceOfPersia-18November.png" id="contentFit">
-                        <img src="images/designs/PrinceOfPersia-18November.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/StuPeeQuickYin.png" id="contentFit">
-                        <img src="images/designs/StuPeeQuickYin.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/GameSig.png" id="contentFit">
-                        <img src="images/designs/GameSig.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/VOHSig.png" id="contentFit">
-                        <img src="images/designs/VOHSig.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/2.png" id="contentFit">
-                        <img src="images/designs/2.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Signature11Nov06.png" id="contentFit">
-                        <img src="images/designs/Signature11Nov06.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/MarksSig-1.png" id="contentFit">
-                        <img src="images/designs/MarksSig-1.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Fagan-DevilMayCry.png" id="contentFit">
-                        <img src="images/designs/Fagan-DevilMayCry.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/BrushC4D.png" id="contentFit">
-                        <img src="images/designs/BrushC4D.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/LisasLemonPic.png" id="contentFit">
-                        <img src="images/designs/LisasLemonPic.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Bored2.png" id="contentFit">
-                        <img src="images/designs/Bored2.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/SeanDeySDS.png" id="contentFit">
-                        <img src="images/designs/SeanDeySDS.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/WeeVsWaeBoab.png" id="contentFit">
-                        <img src="images/designs/WeeVsWaeBoab.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Jenkins1.png" id="contentFit">
-                        <img src="images/designs/Jenkins1.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/JinkyWallpaper.jpg">
-                        <img src="images/designs/JinkyWallpaper.jpg" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Snoop.png" id="contentFit">
-                        <img src="images/designs/Snoop.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/GameNewOne.png" id="contentFit">
-                        <img src="images/designs/GameNewOne.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/135c73fb.png" id="contentFit">
-                        <img src="images/designs/135c73fb.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/0eb26536.png" id="contentFit">
-                        <img src="images/designs/0eb26536.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/TI2.png" id="contentFit">
-                        <img src="images/designs/TI2.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/PurpleWaeStars.png" id="contentFit">
-                        <img src="images/designs/PurpleWaeStars.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/redquicky.png" id="contentFit">
-                        <img src="images/designs/redquicky.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Madcoolborder.png" id="contentFit">
-                        <img src="images/designs/Madcoolborder.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Ti.png" id="contentFit">
-                        <img src="images/designs/Ti.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Jinkysfatjoe.png" id="contentFit">
-                        <img src="images/designs/Jinkysfatjoe.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Fagan-Cassidy.png" id="contentFit">
-                        <img src="images/designs/Fagan-Cassidy.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/7bf8254a.png" id="contentFit">
-                        <img src="images/designs/7bf8254a.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/EXAmPlE8-.png" id="contentFit">
-                        <img src="images/designs/EXAmPlE8-.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/1fagan1.png" id="contentFit">
-                        <img src="images/designs/1fagan1.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/PDiddySigCoUk.png" id="contentFit">
-                        <img src="images/designs/PDiddySigCoUk.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/bowzer-shamrock.png" id="contentFit">
-                        <img src="images/designs/bowzer-shamrock.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/lisas3.png" id="contentFit">
-                        <img src="images/designs/lisas3.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/devine.png" id="contentFit">
-                        <img src="images/designs/devine.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/fagan.gif">
-                        <img src="images/designs/fagan.gif" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Blurred.png" id="contentFit">
-                        <img src="images/designs/Blurred.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/lee.png" id="contentFit">
-                        <img src="images/designs/lee.png" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/animation-yin.gif">
-                        <img src="images/designs/animation-yin.gif" id="contentFit" />
-                    </a>
-                    <a class="gallery image" href="images/designs/Moonboots.gif">
-                        <img src="images/designs/Moonboots.gif" id="contentFit" />
-                    </a>
-                </div>
-            </div>
-        </section>
+<!-- ── Page hero ─────────────────────────────────────────── -->
+<section class="page-hero">
+  <div class="page-hero__bg" aria-hidden="true"></div>
+  <div class="container">
+    <a href="/" class="page-back">Home</a>
+    <span class="page-hero__label">Portfolio</span>
+    <h1 class="page-hero__heading reveal-up">Graphic Design</h1>
+    <p class="page-hero__sub reveal-up">
+      A mix of recent work and older pieces. The newer designs focus on branding and
+      digital work; the older ones were created for web communities and social media back
+      when forum signatures were serious business.
+    </p>
+  </div>
+</section>
 
+
+<!-- ── Gallery ───────────────────────────────────────────── -->
+<section class="gallery-section">
+
+  <!-- Recent work -->
+  <div class="gallery-category">
+    <span class="gallery-category__label">Recent work</span>
+  </div>
+  <div class="masonry-grid" id="recentGrid">
+
+    <a href="images/designs/new/2.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Graphic design">
+      <img src="images/designs/new/2.png" alt="Graphic design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/new/3.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Graphic design">
+      <img src="images/designs/new/3.png" alt="Graphic design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/new/4.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Graphic design">
+      <img src="images/designs/new/4.png" alt="Graphic design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/new/5.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Graphic design">
+      <img src="images/designs/new/5.png" alt="Graphic design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/new/6.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Graphic design">
+      <img src="images/designs/new/6.png" alt="Graphic design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/new/7.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Graphic design">
+      <img src="images/designs/new/7.png" alt="Graphic design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/new/20.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Graphic design">
+      <img src="images/designs/new/20.png" alt="Graphic design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+  </div>
+
+  <!-- Older work -->
+  <div class="gallery-category" style="margin-top: 3rem;">
+    <span class="gallery-category__label">Earlier work — digital art &amp; forum graphics</span>
+  </div>
+  <div class="masonry-grid">
+
+    <a href="images/designs/LightBlue_LilWayne.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: LilWayne forum signature">
+      <img src="images/designs/LightBlue_LilWayne.png" alt="LilWayne forum signature" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/PrinceOfPersia-18November.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Prince of Persia design">
+      <img src="images/designs/PrinceOfPersia-18November.png" alt="Prince of Persia design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/StuPeeQuickYin.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: StuPeeQuickYin">
+      <img src="images/designs/StuPeeQuickYin.png" alt="Digital design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/GameSig.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Game forum signature">
+      <img src="images/designs/GameSig.png" alt="Game forum signature" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/VOHSig.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: VOH signature">
+      <img src="images/designs/VOHSig.png" alt="VOH signature" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/2.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Digital art">
+      <img src="images/designs/2.png" alt="Digital art" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/Signature11Nov06.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Signature — November 2006">
+      <img src="images/designs/Signature11Nov06.png" alt="Signature — November 2006" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/MarksSig-1.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Mark's signature">
+      <img src="images/designs/MarksSig-1.png" alt="Mark's signature" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/Fagan-DevilMayCry.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Devil May Cry design">
+      <img src="images/designs/Fagan-DevilMayCry.png" alt="Devil May Cry design" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+    <a href="images/designs/BrushC4D.png" class="masonry-item glightbox" data-gallery="designs" data-glightbox="description: Brush / Cinema 4D render">
+      <img src="images/designs/BrushC4D.png" alt="Brush C4D" loading="lazy">
+      <div class="masonry-item__overlay"><span>View full size →</span></div>
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- ── CTA ───────────────────────────────────────────────── -->
+<section class="section" style="background: var(--bg-2); border-top: 1px solid var(--border);">
+  <div class="container" style="text-align: center;">
+    <p class="section-label reveal-up">Interested?</p>
+    <h2 class="section-heading reveal-up">Need design work done?</h2>
+    <p style="color: var(--text-muted); margin-bottom: 2rem;" class="reveal-up">
+      I'm available for brand identity, logo, and digital design projects.
+    </p>
+    <div class="hero__actions reveal-up" style="justify-content: center;">
+      <a href="/services.html#design" class="btn btn--primary">See design services</a>
+      <a href="/#book" class="btn btn--ghost">Get a quote</a>
     </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer id="footer" class="wrapper alt">
-        <div class="inner">
-            <ul class="menu">
-                <li>&copy; David Fagan. All rights reserved.</li>
-                <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-                <li><a href="/assets/docs/cookies/">Cookie Policy</a></li>
-                <li><a href="/assets/docs/privacy/">Privacy Policy</a></li>
-            </ul>
-        </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/detect_swipe/2.1.1/jquery.detect_swipe.min.js"></script>
-    <script>
-        $('a.gallery').featherlightGallery({
-            previousIcon: '«',
-            nextIcon: '»',
-            galleryFadeIn: 300,
-            openSpeed: 300
-        });
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <p class="footer__name">David Fagan</p>
+      <p class="footer__copy">&copy; <span id="footerYear"></span> davidfagan.co.uk &middot; Glasgow, Scotland</p>
+      <nav class="footer__links" aria-label="Footer navigation">
+        <a href="https://github.com/davidfagan" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="assets/docs/privacy/index.html">Privacy</a>
+        <a href="assets/docs/cookies/index.html">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
 
-    </script>
-    <script src="https://code.jquery.com/jquery-latest.js"></script>
-    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://code.jquery.com/jquery-latest.js"></script>
-    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Vertical ad -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3755930033410564" data-ad-slot="8750553256" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-
-    </script>
 </body>
-
 </html>

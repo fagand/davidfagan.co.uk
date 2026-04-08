@@ -1,0 +1,307 @@
+/* ============================================================
+   pages.css — shared styles for about, designs, photos, videos
+   Extends 2026.css — load both on inner pages
+   ============================================================ */
+
+/* ─── Page hero ───────────────────────────────────────────── */
+.page-hero {
+  position: relative;
+  padding: calc(var(--nav-h) + 5rem) 0 4rem;
+  overflow: hidden;
+}
+
+.page-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 30%, rgba(62, 64, 148, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(149, 61, 117, 0.25) 0%, transparent 55%),
+    var(--bg);
+}
+
+.page-hero .container { position: relative; z-index: 1; }
+
+.page-hero__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.page-hero__heading {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.25rem;
+}
+
+.page-hero__sub {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* ─── Masonry gallery (designs + photos) ─────────────────── */
+.gallery-section {
+  padding: 3rem 0 6rem;
+  background: var(--bg);
+}
+
+.masonry-grid {
+  columns: 3 280px;
+  column-gap: 1rem;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  display: block;
+  margin-bottom: 1rem;
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: zoom-in;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, transform 0.35s var(--ease-out),
+              box-shadow 0.35s var(--ease-out);
+}
+
+.masonry-item:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.masonry-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s var(--ease-out), filter 0.3s;
+  filter: brightness(0.9);
+}
+
+.masonry-item:hover img {
+  transform: scale(1.03);
+  filter: brightness(1);
+}
+
+.masonry-item__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 6, 13, 0.75) 0%, transparent 55%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.masonry-item:hover .masonry-item__overlay { opacity: 1; }
+
+.masonry-item__overlay span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+/* Design category label */
+.gallery-category {
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+  max-width: 1400px;
+  margin: 0 auto 1.5rem;
+}
+
+.gallery-category__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  display: block;
+}
+
+/* ─── About page ──────────────────────────────────────────── */
+.about-page { background: var(--bg); }
+
+.about-page__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+  padding: 5rem 0;
+}
+
+.about-page__body {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.about-page__body a {
+  color: var(--accent-1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.about-page__body a:hover { color: var(--text); }
+
+.about-page__img-wrap {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.about-page__img-wrap img {
+  width: 100%;
+  display: block;
+  filter: brightness(0.9) saturate(0.95);
+}
+
+/* Skills tags */
+.skills {
+  background: var(--bg-2);
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.skills__heading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.skills__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 0.45em 1em;
+  border-radius: 100px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.skill-tag:hover {
+  border-color: var(--border-bright);
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+/* ─── Video cards ─────────────────────────────────────────── */
+.videos-section {
+  padding: 3rem 0 6rem;
+  background: var(--bg);
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 2rem;
+}
+
+.video-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s var(--ease-out);
+}
+
+.video-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-4px);
+}
+
+.video-card__embed {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 */
+  background: #000;
+}
+
+.video-card__embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-card__meta {
+  padding: 1.25rem 1.5rem;
+}
+
+.video-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.video-card__desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ─── GLightbox overrides ─────────────────────────────────── */
+.glightbox-clean .gslide-description {
+  background: var(--bg-3) !important;
+}
+
+.glightbox-clean .gdesc-inner {
+  padding: 1rem 1.5rem !important;
+}
+
+/* ─── Back nav ────────────────────────────────────────────── */
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.2s, gap 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.page-back::before { content: '←'; transition: transform 0.2s; }
+.page-back:hover { color: var(--text); gap: 0.75rem; }
+.page-back:hover::before { transform: translateX(-3px); }
+
+/* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-page__grid { grid-template-columns: 1fr; }
+  .about-page__img-wrap { position: static; max-width: 340px; }
+  .videos-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .masonry-grid { columns: 2 160px; }
+}
