@@ -256,12 +256,12 @@
   }
 
   /* ─── Cal.com embed ─────────────────────────────────────── */
-  /*
-    TO ENABLE CALENDAR BOOKING:
+  
+  /*  TO ENABLE CALENDAR BOOKING:
     1. Go to https://cal.com and create a free account
     2. Create your event types (e.g. "Photography Session", "Web Consultation")
     3. Replace 'YOUR_CAL_USERNAME' below with your Cal.com username
-    4. Uncomment the block below and remove the .cal-placeholder div in index.html
+    4. Uncomment the block below and remove the .cal-placeholder div in index.html */
 
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
@@ -284,18 +284,18 @@
       }
       p(cal, ar);
     };
-  })(window, 'https://app.cal.com/embed/embed.js', 'init');
+  })(window, 'https://app.cal.eu/embed/embed.js', 'init');
 
-  Cal('init', { origin: 'https://cal.com' });
+  Cal('init', { origin: 'https://cal.eu' });
   Cal('inline', {
     elementOrSelector: '#cal-embed',
-    calLink: 'YOUR_CAL_USERNAME',
+    calLink: 'dfdesign',
     layout: 'month_view',
   });
   Cal('ui', {
     styles: { branding: { brandColor: '#9f5ec2' } },
     hideEventTypeDetails: false,
   });
-  */
+  
 
 })();
