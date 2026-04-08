@@ -7,15 +7,15 @@
 <html lang="en">
 
 <head>
-    <title>David Fagan - About Me</title>
+    <title>David Fagan - Logos</title>
     <meta charset="utf-8" />
     <!-- Meta Data -->
     <meta property="og:site_name" content="davidfagan.co.uk">
-    <meta property="og:title" content="davidfagan.co.uk">
+    <meta property="og:title" content="davidfagan.co.uk | Logos">
     <meta property="og:url" content="https://www.davidfagan.co.uk">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://www.davidfagan.co.uk/images/david.png">
-    <meta property="og:description" content="Professional portfolio of designer and developer David John Fagan.">
+    <meta property="og:image" content="https://www.davidfagan.co.uk/images/metagif.gif">
+    <meta property="og:description" content="Professional portfolio of designer and developer David Fagan.">
     <meta name="keywords" content="David Fagan, David John Fagan, fagan-1.com, davidfagan.co.uk, @iamfagan, HTML, CSS, JavaScript, Fagan, David, Glasgow, Scotland, Airdrie">
     <meta name="author" content="David Fagan">
     <!-- Favicon -->
@@ -31,20 +31,10 @@
     <!-- Style -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link href="assets/css/featherlight.min.css" type="text/css" rel="stylesheet" />
+    <link href="assets/css/featherlight.gallery.min.css" type="text/css" rel="stylesheet" />
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <script>
-        $(function() {
-            var date = new Date();
-            var year = date.getFullYear();
-            var age = year - 1990;
-
-            document.getElementById("age").innerHTML = age;
-        })
-
-    </script>
     <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
@@ -63,9 +53,10 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About Me</a></li>
+                <li><a href="about.html">About Me</a></li>
                 <li><a href="designs.html">Graphix</a></li>
                 <li><a href="photos.html">Photos</a></li>
+                <li><a href="logos.html" class="active">Logos</a></li>
                 <li><a href="videos.html">Videos</a></li>
             </ul>
         </nav>
@@ -73,26 +64,26 @@
 
     <!-- Wrapper -->
     <div id="wrapper">
-
-        <!-- Main -->
         <section id="main" class="wrapper">
+            <!-- Main -->
             <div class="inner">
-                <h1 class="major">About Me</h1>
-                <span class="image left" id="profilePic"><img src="images/david.png" alt="" /></span>
-                <p>I am <v id="age"></v> years old. I have always had a passion for computers and technology. When I was around 15, I created my <a href="https://fagan-1.com">first website</a>. I used my graphic design skills to design a layout, I then sliced and coded the layout, secured hosting and finally uploaded the site to the world wide web. The website went on to have a period of great popularity which only increased my desire to make it last. The site today pays homage to the past.<br> In the past, the sites functionality progressed and design was improved with an aim to keep it modern and appealing.<br>My passion for technology led me into further education where I graduated as BSc of Computing from Glasgow Caledonian University.
-                <p>I have experience in two object orientated programming languages, Java and C#. As well as this I have built on my previous experience of HTML, adding JavaScript and jQuery experience. <br>I have many years of work experience with customer relations and team working. </p>
-                <p>My work history and skills can be viewed on my CV, please contact me using one of the <a href="index.html#contact"> contact options</a> to request my CV.</p>
+                <h1 class="major">Logos</h1>
+                <p>If you'd like to enquire about getting a logo made, please contact me on either: <a href="https://instagram.com/davidfagan" target="_blank">Instagram</a> or by using the <a href="/index.html#contact">contact form.</a></p>
+                <div class="photorow">
+                    <div class="column">
+                        <a class="gallery image" href="images/logos/1.png"><img src="images/logos/1.png"></a>
+                        <a class="gallery image" href="images/logos/2.png"><img src="images/logos/2.png"></a>
+                        <a class="gallery image" href="images/logos/3.png"><img src="images/logos/3.png"></a>
+                        <a class="gallery image" href="images/logos/4.png"><img class="lazy" data-src="images/logos/4.png"></a>
+                        <a class="gallery image" href="images/logos/5.png"><img class="lazy" data-src="images/logos/5.png"></a>
+                        <a class="gallery image" href="images/logos/6.jpeg"><img class="lazy" data-src="images/logos/6.jpeg"></a>
+                        <a class="gallery image" href="images/logos/7.png"><img class="lazy" data-src="images/logos/7.png"></a>
+                        <a class="gallery image" href="images/logos/8.png"><img class="lazy" data-src="images/logos/8.png"></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-
-    </div>
-
-    <!-- Modal for full size images on click-->
-    <div id="modal01" class="df-modal df-black" onclick="this.style.display='none'">
-        <span class="df-button df-large df-black df-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
-        <div class="df-modal-content df-animate-zoom df-center df-transparent df-padding-64">
-            <img id="img01" class="df-image">
-        </div>
     </div>
 
     <!-- Footer -->
@@ -115,13 +106,21 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/detect_swipe/2.1.1/jquery.detect_swipe.min.js"></script>
+    <script src="/assets/js/lazyload.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
-        function onClick(element) {
-            document.getElementById("img01").src = element.src;
-            document.getElementById("modal01").style.display = "block";
-            var captionText = document.getElementById("caption");
-            captionText.innerHTML = element.alt;
-        }
+        $('a.gallery').featherlightGallery({
+            previousIcon: '«',
+            nextIcon: '»',
+            galleryFadeIn: 300,
+            openSpeed: 300
+        });
 
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

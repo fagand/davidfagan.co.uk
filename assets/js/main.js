@@ -3,188 +3,234 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+function changeWindowScheme() {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        console.log("User has changed colour scheme");
+        $('.spotlights > section')
+            .each(function () {
+                var dm = "dark"; //Variable to store the word dark to add to url. Had to create a darkimages folder.
+                var $this = $(this),
+                    $image = $this.find('.image'),
+                    $img = $image.find('img'),
+                    x;
 
-(function($) {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
 
-	var	$window = $(window),
-		$body = $('body'),
-		$sidebar = $('#sidebar');
+                    // Assign image.
+                    $image.css('background-image', 'url(' + dm + $img.attr('src') + ')');
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '981px',   '1280px' ],
-			medium:   [ '737px',   '980px'  ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ null,      '480px'  ]
-		});
+                    // Set background position.
+                    if (x = $img.data('position'))
+                        $image.css('background-position', x);
 
-	// Hack: Enable IE flexbox workarounds.
-		if (browser.name == 'ie')
-			$body.addClass('is-ie');
+                    // Hide <img>.
+                    $img.hide();
+                } else {
+                    // Assign image.
+                    $image.css('background-image', 'url(' + $img.attr('src') + ')');
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+                    // Set background position.
+                    if (x = $img.data('position'))
+                        $image.css('background-position', x);
 
-	// Forms.
+                    // Hide <img>.
+                    $img.hide();
+                }
+            });
+    })
+}
+(function ($) {
+changeWindowScheme();
+    var $window = $(window),
+        $body = $('body'),
+        $sidebar = $('#sidebar');
 
-		// Hack: Activate non-input submits.
-			$('form').on('click', '.submit', function(event) {
+    // Breakpoints.
+    breakpoints({
+        xlarge: ['1281px', '1680px'],
+        large: ['981px', '1280px'],
+        medium: ['737px', '980px'],
+        small: ['481px', '736px'],
+        xsmall: [null, '480px']
+    });
 
-				// Stop propagation, default.
-					event.stopPropagation();
-					event.preventDefault();
+    // Hack: Enable IE flexbox workarounds.
+    if (browser.name == 'ie')
+        $body.addClass('is-ie');
 
-				// Submit form.
-					$(this).parents('form').submit();
+    // Play initial animations on page load.
+    $window.on('load', function () {
+        window.setTimeout(function () {
+            $body.removeClass('is-preload');
+        }, 100);
+    });
 
-			});
+    // Forms.
 
-	// Sidebar.
-		if ($sidebar.length > 0) {
+    // Hack: Activate non-input submits.
+    $('form').on('click', '.submit', function (event) {
 
-			var $sidebar_a = $sidebar.find('a');
+        // Stop propagation, default.
+        event.stopPropagation();
+        event.preventDefault();
 
-			$sidebar_a
-				.addClass('scrolly')
-				.on('click', function() {
+        // Submit form.
+        $(this).parents('form').submit();
 
-					var $this = $(this);
+    });
 
-					// External link? Bail.
-						if ($this.attr('href').charAt(0) != '#')
-							return;
+    // Sidebar.
+    if ($sidebar.length > 0) {
 
-					// Deactivate all links.
-						$sidebar_a.removeClass('active');
+        var $sidebar_a = $sidebar.find('a');
 
-					// Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
-						$this
-							.addClass('active')
-							.addClass('active-locked');
+        $sidebar_a
+            .addClass('scrolly')
+            .on('click', function () {
 
-				})
-				.each(function() {
+                var $this = $(this);
 
-					var	$this = $(this),
-						id = $this.attr('href'),
-						$section = $(id);
+                // External link? Bail.
+                if ($this.attr('href').charAt(0) != '#')
+                    return;
 
-					// No section for this link? Bail.
-						if ($section.length < 1)
-							return;
+                // Deactivate all links.
+                $sidebar_a.removeClass('active');
 
-					// Scrollex.
-						$section.scrollex({
-							mode: 'middle',
-							top: '-20vh',
-							bottom: '-20vh',
-							initialize: function() {
+                // Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
+                $this
+                    .addClass('active')
+                    .addClass('active-locked');
 
-								// Deactivate section.
-									$section.addClass('inactive');
+            })
+            .each(function () {
 
-							},
-							enter: function() {
+                var $this = $(this),
+                    id = $this.attr('href'),
+                    $section = $(id);
 
-								// Activate section.
-									$section.removeClass('inactive');
+                // No section for this link? Bail.
+                if ($section.length < 1)
+                    return;
 
-								// No locked links? Deactivate all links and activate this section's one.
-									if ($sidebar_a.filter('.active-locked').length == 0) {
+                // Scrollex.
+                $section.scrollex({
+                    mode: 'middle',
+                    top: '-20vh',
+                    bottom: '-20vh',
+                    initialize: function () {
 
-										$sidebar_a.removeClass('active');
-										$this.addClass('active');
+                        // Deactivate section.
+                        $section.addClass('inactive');
 
-									}
+                    },
+                    enter: function () {
 
-								// Otherwise, if this section's link is the one that's locked, unlock it.
-									else if ($this.hasClass('active-locked'))
-										$this.removeClass('active-locked');
+                        // Activate section.
+                        $section.removeClass('inactive');
 
-							}
-						});
+                        // No locked links? Deactivate all links and activate this section's one.
+                        if ($sidebar_a.filter('.active-locked').length == 0) {
 
-				});
+                            $sidebar_a.removeClass('active');
+                            $this.addClass('active');
 
-		}
+                        }
 
-	// Scrolly.
-		$('.scrolly').scrolly({
-			speed: 1000,
-			offset: function() {
+                        // Otherwise, if this section's link is the one that's locked, unlock it.
+                        else if ($this.hasClass('active-locked'))
+                            $this.removeClass('active-locked');
 
-				// If <=large, >small, and sidebar is present, use its height as the offset.
-					if (breakpoints.active('<=large')
-					&&	!breakpoints.active('<=small')
-					&&	$sidebar.length > 0)
-						return $sidebar.height();
+                    }
+                });
 
-				return 0;
+            });
 
-			}
-		});
+    }
 
-	// Spotlights.
-		$('.spotlights > section')
-			.scrollex({
-				mode: 'middle',
-				top: '-10vh',
-				bottom: '-10vh',
-				initialize: function() {
+    // Scrolly.
+    $('.scrolly').scrolly({
+        speed: 1000,
+        offset: function () {
 
-					// Deactivate section.
-						$(this).addClass('inactive');
+            // If <=large, >small, and sidebar is present, use its height as the offset.
+            if (breakpoints.active('<=large') &&
+                !breakpoints.active('<=small') &&
+                $sidebar.length > 0)
+                return $sidebar.height();
 
-				},
-				enter: function() {
+            return 0;
 
-					// Activate section.
-						$(this).removeClass('inactive');
+        }
+    });
 
-				}
-			})
-			.each(function() {
+    // Spotlights.
+    $('.spotlights > section')
+        .scrollex({
+            mode: 'middle',
+            top: '-10vh',
+            bottom: '-10vh',
+            initialize: function () {
 
-				var	$this = $(this),
-					$image = $this.find('.image'),
-					$img = $image.find('img'),
-					x;
+                // Deactivate section.
+                $(this).addClass('inactive');
 
-				// Assign image.
-					$image.css('background-image', 'url(' + $img.attr('src') + ')');
+            },
+            enter: function () {
 
-				// Set background position.
-					if (x = $img.data('position'))
-						$image.css('background-position', x);
+                // Activate section.
+                $(this).removeClass('inactive');
 
-				// Hide <img>.
-					$img.hide();
+            }
+        })
+        .each(function () {
+            var dm = "dark"; //Variable to store the word dark to add to url. Had to create a darkimages folder.
+            var $this = $(this),
+                $image = $this.find('.image'),
+                $img = $image.find('img'),
+                x;
 
-			});
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
 
-	// Features.
-		$('.features')
-			.scrollex({
-				mode: 'middle',
-				top: '-20vh',
-				bottom: '-20vh',
-				initialize: function() {
+                // Assign image.
+                $image.css('background-image', 'url(' + dm + $img.attr('src') + ')');
 
-					// Deactivate section.
-						$(this).addClass('inactive');
+                // Set background position.
+                if (x = $img.data('position'))
+                    $image.css('background-position', x);
 
-				},
-				enter: function() {
+                // Hide <img>.
+                $img.hide();
+            } else {
+                // Assign image.
+                $image.css('background-image', 'url(' + $img.attr('src') + ')');
 
-					// Activate section.
-						$(this).removeClass('inactive');
+                // Set background position.
+                if (x = $img.data('position'))
+                    $image.css('background-position', x);
 
-				}
-			});
+                // Hide <img>.
+                $img.hide();
+            }
+        });
 
+    // Features.
+    $('.features')
+        .scrollex({
+            mode: 'middle',
+            top: '-20vh',
+            bottom: '-20vh',
+            initialize: function () {
+
+                // Deactivate section.
+                $(this).addClass('inactive');
+
+            },
+            enter: function () {
+
+                // Activate section.
+                $(this).removeClass('inactive');
+
+            }
+        });
 })(jQuery);
