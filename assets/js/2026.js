@@ -219,7 +219,7 @@
     //
     // To add/remove images: edit the arrays below. Paths are relative to site root.
     // To change rotation speed: adjust INTERVAL_MS (milliseconds between swaps).
-    var INTERVAL_MS = 4000; // 4 seconds per image
+    var INTERVAL_MS = 10000; // 10 seconds per image
 
     var pools = [
       // ── Graphic Design ──────────────────────────────────
