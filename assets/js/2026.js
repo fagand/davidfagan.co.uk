@@ -104,11 +104,7 @@
     // slightly smaller, making them feel like they're "arriving" into place.
     // CSS sets initial state: opacity:0, translateY(60px) scale(0.92)
     // GSAP animates to: opacity:1, y:0, scale:1
-    //
-    // Service cards are excluded here — handled by initServiceCards() below.
-    const upEls = gsap.utils.toArray('.reveal-up').filter(function (el) {
-      return !el.closest('.services__grid');
-    });
+    const upEls = gsap.utils.toArray('.reveal-up');
 
     upEls.forEach(function (el) {
       const delay = parseFloat(el.dataset.delay || 0) * 0.12;
@@ -170,18 +166,17 @@
     const grid = document.querySelector('.services__grid');
     if (!grid) return;
 
-    const cards = grid.querySelectorAll('.service-card');
-
-    // BEFORE: y: 55, no scale, power3.out, 0.8s stagger: 0.13
-    // AFTER : y: 70, scale 0.88 → 1, power4.out, 0.9s, stagger: 0.1
-    //
-    // The 0.88 scale (12% smaller) is the sweet spot — noticeable but not jarring.
-    // To adjust intensity: scale (0.92 = subtle, 0.85 = very dramatic)
+    // Cards have reveal-up class (CSS: opacity:0, translateY(60px) scale(0.92)).
+    // initRevealAnimations() handles them per-card. This overrides with a grouped
+    // stagger for a more polished cascade. Uses gsap.to (not gsap.from) so it
+    // animates FROM current state TO visible — no risk of setting a hidden state
+    // that never gets cleared.
     // To adjust stagger: 0.08 = faster cascade, 0.15 = slower cascade
-    gsap.from(cards, {
-      y: 70,
-      opacity: 0,
-      scale: 0.88,
+    const cards = grid.querySelectorAll('.service-card');
+    gsap.to(cards, {
+      y: 0,
+      scale: 1,
+      opacity: 1,
       duration: 0.9,
       stagger: 0.1,
       ease: 'power4.out',
