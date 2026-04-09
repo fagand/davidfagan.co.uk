@@ -17,6 +17,7 @@
     initRevealAnimations();
     initServiceCards();
     initWorkItems();
+    initWorkRotation();
     initNav();
     initForms();
     initFooterYear();
@@ -208,6 +209,100 @@
           scrub: true,
         },
       });
+    });
+  }
+
+  /* ─── Work: random image rotation ──────────────────────── */
+  function initWorkRotation() {
+    // Image pools for each work item. Order matches the .work-item elements in HTML:
+    //   [0] Graphic Design  [1] Photography  [2] Videography
+    //
+    // To add/remove images: edit the arrays below. Paths are relative to site root.
+    // To change rotation speed: adjust INTERVAL_MS (milliseconds between swaps).
+    var INTERVAL_MS = 4000; // 4 seconds per image
+
+    var pools = [
+      // ── Graphic Design ──────────────────────────────────
+      [
+        'images/designs/new/2.png',
+        'images/designs/new/3.png',
+        'images/designs/new/4.png',
+        'images/designs/new/5.png',
+        'images/designs/new/6.png',
+        'images/designs/new/7.png',
+        'images/designs/new/20.png',
+      ],
+      // ── Photography ─────────────────────────────────────
+      // A curated spread across the full photo library.
+      // Add/remove img filenames to control which photos appear.
+      [
+        'images/photos/img1.jpg',
+        'images/photos/img5.jpg',
+        'images/photos/img10.jpg',
+        'images/photos/img15.jpg',
+        'images/photos/img22.jpg',
+        'images/photos/img29.jpg',
+        'images/photos/img35.jpg',
+        'images/photos/img40.jpg',
+        'images/photos/img43.jpg',
+        'images/photos/img46.jpg',
+      ],
+      // ── Videography ─────────────────────────────────────
+      [
+        'darkimages/pic01.jpg',
+        'darkimages/pic02.jpg',
+      ],
+    ];
+
+    var items = document.querySelectorAll('.work-item');
+
+    items.forEach(function (item, i) {
+      var pool = pools[i];
+      if (!pool || pool.length < 2) return;
+
+      var img = item.querySelector('.work-item__img-wrap img');
+      if (!img) return;
+
+      // Preload all images in this pool so crossfades don't flicker
+      pool.forEach(function (src) {
+        var preload = new Image();
+        preload.src = src;
+      });
+
+      // Pick a random starting image so each page visit looks different
+      var currentIndex = Math.floor(Math.random() * pool.length);
+      img.src = pool[currentIndex];
+
+      // Stagger start times so all three items don't swap simultaneously
+      // Item 0: starts at 0ms, Item 1: +1500ms, Item 2: +3000ms
+      var staggerDelay = i * 1500;
+
+      setTimeout(function () {
+        setInterval(function () {
+          // Choose a different index — never repeat the current image
+          var nextIndex;
+          do {
+            nextIndex = Math.floor(Math.random() * pool.length);
+          } while (nextIndex === currentIndex);
+
+          // Crossfade: fade out → swap src → fade in
+          // Uses GSAP opacity tween (separate from the transform/parallax)
+          gsap.to(img, {
+            opacity: 0,
+            duration: 0.45,
+            ease: 'power2.in',
+            onComplete: function () {
+              img.src = pool[nextIndex];
+              currentIndex = nextIndex;
+              gsap.to(img, {
+                opacity: 1,
+                duration: 0.6,
+                ease: 'power2.out',
+              });
+            },
+          });
+        }, INTERVAL_MS);
+      }, staggerDelay);
     });
   }
 
