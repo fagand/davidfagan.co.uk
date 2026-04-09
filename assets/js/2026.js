@@ -8,7 +8,6 @@
   'use strict';
 
   /* ─── GSAP Init ─────────────────────────────────────────── */
-  // Wait for GSAP CDN scripts to load
   window.addEventListener('load', function () {
     if (typeof gsap === 'undefined') return; // graceful no-op if CDN fails
 
@@ -24,24 +23,51 @@
     initMobileNav();
   });
 
-  /* ─── Hero: background zoom on scroll ─────────────────── */
+  /* ─── Hero: background zoom + content parallax exit ─────── */
   function initHero() {
-    const heroBg = document.getElementById('heroBg');
+    const heroBg     = document.getElementById('heroBg');
+    const heroContent = document.querySelector('.hero__content');
     if (!heroBg) return;
 
-    // Background scales from 1 → 1.25 as you scroll hero out of view
+    // ── Background zoom ───────────────────────────────────────
+    // BEFORE: scale 1 → 1.25, ease: none, scrub: 1.5
+    // AFTER : scale 1 → 1.6  (60% growth — clearly visible)
+    //         ease: 'power2.in' (accelerates as you scroll, feels physical)
+    //         scrub: 1 (snappier scroll tracking)
+    // To adjust intensity: change the scale value (1.4 = moderate, 1.8 = very dramatic)
     gsap.to(heroBg, {
-      scale: 1.25,
-      ease: 'none',
+      scale: 1.6,
+      ease: 'power2.in',
       scrollTrigger: {
         trigger: '.hero',
         start: 'top top',
         end: 'bottom top',
-        scrub: 1.5,
+        scrub: 1,
       },
     });
 
-    // Heading words stagger in on load
+    // ── Hero content: parallax exit (NEW) ─────────────────────
+    // The content drifts UP and fades OUT as you scroll down.
+    // This creates Apple-style depth contrast: foreground leaves,
+    // background zooms in behind it. Without this, the zoom feels flat.
+    // To adjust: change y (-60 = subtle, -80 = standard, -120 = dramatic)
+    // To adjust: change the end scrub point (50% = fast exit, 70% = slow exit)
+    if (heroContent) {
+      gsap.to(heroContent, {
+        y: -90,
+        opacity: 0,
+        ease: 'power1.in',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: '55% top',
+          scrub: 1.2,
+        },
+      });
+    }
+
+    // ── Heading words: stagger in on load ────────────────────
+    // Unchanged — already well-tuned
     const words = document.querySelectorAll('.hero__heading span');
     if (words.length) {
       gsap.from(words, {
@@ -54,8 +80,8 @@
       });
     }
 
-    // Set hero sub-elements hidden immediately, then animate in
-    // (these don't use the reveal-up CSS class, so we control state entirely here)
+    // ── Hero sub-elements: staggered reveal ──────────────────
+    // Unchanged — already well-tuned
     const heroSubEls = ['.hero__eyebrow', '.hero__sub', '.hero__actions', '.hero__scroll'];
     gsap.set(heroSubEls, { y: 30, opacity: 0 });
     gsap.to(heroSubEls, {
@@ -70,18 +96,30 @@
 
   /* ─── Generic scroll reveal ────────────────────────────── */
   function initRevealAnimations() {
-    // .reveal-up elements — staggered within same parent
-    const upEls = gsap.utils.toArray('.reveal-up');
+    // ── Reveal up ─────────────────────────────────────────────
+    // BEFORE: y: 40px, opacity fade only, power3.out, 0.85s
+    // AFTER : y: 60px (via CSS), ADDS scale 0.92 → 1, power4.out, 0.95s
+    //
+    // The scale component is the key Apple trick: elements emerge from
+    // slightly smaller, making them feel like they're "arriving" into place.
+    // CSS sets initial state: opacity:0, translateY(60px) scale(0.92)
+    // GSAP animates to: opacity:1, y:0, scale:1
+    //
+    // Service cards are excluded here — handled by initServiceCards() below.
+    const upEls = gsap.utils.toArray('.reveal-up').filter(function (el) {
+      return !el.closest('.services__grid');
+    });
+
     upEls.forEach(function (el) {
-      // Check for data-delay to offset sibling staggering
       const delay = parseFloat(el.dataset.delay || 0) * 0.12;
 
       gsap.to(el, {
         y: 0,
+        scale: 1,
         opacity: 1,
-        duration: 0.85,
+        duration: 0.95,
         delay: delay,
-        ease: 'power3.out',
+        ease: 'power4.out',
         scrollTrigger: {
           trigger: el,
           start: 'top 88%',
@@ -90,13 +128,16 @@
       });
     });
 
-    // Slide in from left
+    // ── Reveal left ───────────────────────────────────────────
+    // BEFORE: x: -40px, opacity only
+    // AFTER : x: -50px (CSS), ADDS scale 0.96 → 1
     gsap.utils.toArray('.reveal-left').forEach(function (el) {
       gsap.to(el, {
         x: 0,
+        scale: 1,
         opacity: 1,
-        duration: 0.9,
-        ease: 'power3.out',
+        duration: 1,
+        ease: 'power4.out',
         scrollTrigger: {
           trigger: el,
           start: 'top 85%',
@@ -105,13 +146,16 @@
       });
     });
 
-    // Slide in from right
+    // ── Reveal right ──────────────────────────────────────────
+    // BEFORE: x: 40px, opacity only
+    // AFTER : x: 50px (CSS), ADDS scale 0.96 → 1
     gsap.utils.toArray('.reveal-right').forEach(function (el) {
       gsap.to(el, {
         x: 0,
+        scale: 1,
         opacity: 1,
-        duration: 0.9,
-        ease: 'power3.out',
+        duration: 1,
+        ease: 'power4.out',
         scrollTrigger: {
           trigger: el,
           start: 'top 85%',
@@ -121,32 +165,46 @@
     });
   }
 
-  /* ─── Services: stagger cards ───────────────────────────── */
+  /* ─── Services: stagger cards with scale ───────────────── */
   function initServiceCards() {
     const grid = document.querySelector('.services__grid');
     if (!grid) return;
 
     const cards = grid.querySelectorAll('.service-card');
+
+    // BEFORE: y: 55, no scale, power3.out, 0.8s stagger: 0.13
+    // AFTER : y: 70, scale 0.88 → 1, power4.out, 0.9s, stagger: 0.1
+    //
+    // The 0.88 scale (12% smaller) is the sweet spot — noticeable but not jarring.
+    // To adjust intensity: scale (0.92 = subtle, 0.85 = very dramatic)
+    // To adjust stagger: 0.08 = faster cascade, 0.15 = slower cascade
     gsap.from(cards, {
-      y: 55,
+      y: 70,
       opacity: 0,
-      duration: 0.8,
-      stagger: 0.13,
-      ease: 'power3.out',
+      scale: 0.88,
+      duration: 0.9,
+      stagger: 0.1,
+      ease: 'power4.out',
       scrollTrigger: {
         trigger: grid,
-        start: 'top 82%',
+        start: 'top 85%',
         toggleActions: 'play none none none',
       },
     });
   }
 
-  /* ─── Work: image parallax on hover ─────────────────────── */
+  /* ─── Work: image parallax on scroll ────────────────────── */
   function initWorkItems() {
-    // Subtle vertical parallax on scroll for work images
+    // BEFORE: yPercent: -8 (barely visible)
+    // AFTER : yPercent: -18 (2.25× stronger — clearly visible depth)
+    //
+    // Images are set to height: 120% in CSS to prevent gaps at extremes.
+    // GSAP controls the vertical shift; CSS transition handles hover brightness.
+    //
+    // To adjust depth: -10 = subtle, -18 = standard, -28 = dramatic
     gsap.utils.toArray('.work-item__img-wrap').forEach(function (wrap) {
       gsap.to(wrap.querySelector('img'), {
-        yPercent: -8,
+        yPercent: -18,
         ease: 'none',
         scrollTrigger: {
           trigger: wrap,
@@ -256,7 +314,7 @@
   }
 
   /* ─── Cal.com embed ─────────────────────────────────────── */
-  
+
   /*  TO ENABLE CALENDAR BOOKING:
     1. Go to https://cal.com and create a free account
     2. Create your event types (e.g. "Photography Session", "Web Consultation")
@@ -296,6 +354,6 @@
     styles: { branding: { brandColor: '#9f5ec2' } },
     hideEventTypeDetails: false,
   });
-  
+
 
 })();
