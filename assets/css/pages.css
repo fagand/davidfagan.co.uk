@@ -171,6 +171,9 @@
 
 .about-page__img-wrap img {
   width: 100%;
+  /* The img carries intrinsic width/height attributes for CLS; height:auto
+     keeps the aspect ratio when the CSS width overrides the attribute. */
+  height: auto;
   display: block;
   filter: brightness(0.9) saturate(0.95);
 }

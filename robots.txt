@@ -1,0 +1,28 @@
+# https://www.davidfagan.co.uk/robots.txt
+
+User-agent: *
+Allow: /
+
+# Gated tools portal — these require a sign-in and hold no public content.
+# Deployed from separate repositories; see /work/ for the portal itself.
+Disallow: /work/seatingplan/
+Disallow: /work/reports/
+Disallow: /work/forms/
+Disallow: /work/bulletin/
+Disallow: /work/admin/
+
+# Orphaned legacy pages kept only so old inbound links do not break.
+# They are superseded by the current site and should not be indexed.
+Disallow: /captcha.html
+Disallow: /coming.html
+Disallow: /elements.html
+Disallow: /logos.html
+Disallow: /quiz.html
+Disallow: /thank-you.html
+Disallow: /old_action_page.php
+Disallow: /coursework/
+Disallow: /kevinwatt/
+# Vendored PhotoSwipe demo site, unreferenced by any page here.
+Disallow: /assets/photos/website/
+
+Sitemap: https://www.davidfagan.co.uk/sitemap.xml

@@ -19,7 +19,7 @@
 
   --text:       #f0edf8;
   --text-muted: #a492d3;
-  --text-dim:   rgba(240, 237, 248, 0.45);
+  --text-dim:   rgba(240, 237, 248, 0.52);   /* 4.9:1 on --bg — AA for body text */
 
   --grad:        linear-gradient(135deg, var(--accent-3), var(--accent-1), var(--accent-2));
   --grad-text:   linear-gradient(120deg, #c084fc, #ff33cc 60%, #a78bfa);
@@ -890,6 +890,15 @@ input[type="date"] {
   will-change: transform, opacity;
 }
 
+/* A 50px offset is a large slice of a 320px viewport, and elements waiting
+ * below the fold hold that offset until their ScrollTrigger fires — which
+ * pushed the document wider than the screen. Shrink the travel on narrow
+ * screens; the animation still reads, without the sideways scroll. */
+@media (max-width: 720px) {
+  .reveal-left  { transform: translateX(-18px) scale(0.98); }
+  .reveal-right { transform: translateX(18px)  scale(0.98); }
+}
+
 /* Reduced motion: show everything immediately.
  * The no-JS case is handled by the <noscript> block in each page's <head>,
  * and a failed GSAP load is handled by showAllReveals() in 2026.js. */
@@ -943,3 +952,164 @@ input[type="date"] {
   .form-group--half { flex-direction: column; }
   .footer__inner  { flex-direction: column; align-items: flex-start; }
 }
+
+/* ══════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ══════════════════════════════════════════════════════════ */
+
+/* ─── Skip link ───────────────────────────────────────────── */
+/* Keyboard and screen-reader users land on the nav on every page; this lets
+ * them jump past it. Visible only while focused. */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent-1);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ─── Keyboard focus ──────────────────────────────────────── */
+/* There was no visible focus indicator on links or buttons anywhere, so
+ * keyboard users could not tell where they were (WCAG 2.4.7). :focus-visible
+ * means mouse users never see a ring. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 1px;
+}
+
+/* Never let the overflow guard clip a focus ring out of sight. */
+:focus-visible { scroll-margin: 1rem; }
+
+/* Anchored sections sit under the fixed nav without this. */
+[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+
+/* ─── Cal.com click-to-load placeholder ───────────────────── */
+.cal-consent__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 42ch;
+  margin: 0 auto;
+}
+
+.cal-consent__inner svg   { color: var(--accent-1); opacity: 0.8; }
+.cal-consent__inner p     { font-weight: 700; font-size: 1.1rem; color: var(--text); margin: 0; }
+.cal-consent__inner span  { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
+.cal-consent__inner a     { color: var(--accent-1); }
+.cal-consent__alt         { font-size: 0.8rem !important; color: var(--text-dim) !important; }
+
+/* ─── Form validation ─────────────────────────────────────── */
+/* Errors are announced, described by text, and marked with more than colour:
+ * a border, an icon character and a message tied to the field via
+ * aria-describedby. */
+.form-error {
+  display: none;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #ff8fa3;
+  line-height: 1.4;
+}
+
+.form-error.visible { display: block; }
+
+.form-error::before {
+  content: '⚠ ';
+  font-weight: 700;
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: #ff8fa3;
+  box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.12);
+}
+
+/* Submission failures that are not about one field. */
+.form-status {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background: rgba(255, 143, 163, 0.1);
+  border: 1px solid rgba(255, 143, 163, 0.35);
+  color: #ffc2cd;
+}
+
+.form-status.visible { display: block; }
+.form-status a { color: inherit; }
+
+/* A submitting button should look inert as well as be inert. */
+.btn[disabled],
+button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TOUCH TARGETS & MOBILE CTA
+   ══════════════════════════════════════════════════════════ */
+
+/* WCAG 2.5.8 asks for a 24x24 minimum. These inline text links were rendering
+ * 21-22px tall, which is awkward on a phone as well as non-conformant. Padding
+ * rather than font-size keeps the design identical. */
+.link-arrow,
+.service-card__cta,
+.contact__link,
+.footer__links a,
+.err__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 2px;
+}
+
+@media (max-width: 720px) {
+  /* The nav CTA is the site's primary action, but it lived inside the
+   * hamburger, so on a phone there was no visible way to make contact without
+   * opening the menu first. Promote it into the bar itself. The hamburger is
+   * still there for everything else. */
+  .nav__cta--mobile {
+    display: inline-flex !important;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 0.75rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.9rem !important;
+    white-space: nowrap;
+  }
+
+  /* Give the row enough room for logo + CTA + hamburger at 320px. */
+  .nav__inner { gap: 0.5rem; }
+  .nav__logo-name { font-size: 1rem; }
+}
+
+/* Above the mobile breakpoint the in-bar copy is redundant — the full nav
+ * already carries its own "Get in touch". */
+.nav__cta--mobile { display: none; }

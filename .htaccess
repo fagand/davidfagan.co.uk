@@ -1,0 +1,75 @@
+# davidfagan.co.uk — Apache configuration
+#
+# ⚠ NOT DEPLOYED AUTOMATICALLY. The .cpanel.yml deploy copies `*`, which does
+# not match dotfiles, so this file is version-controlled here but must be
+# merged into the server's existing /home/fagancom/davidfagan.co.uk/.htaccess
+# by hand. The server already performs an http -> https -> www redirect, which
+# means it HAS an .htaccess already: read it before pasting anything below, or
+# you risk duplicating or contradicting rules that are already working.
+
+# ── Custom error pages ──────────────────────────────────────────────────────
+# Without this the server returns Apache's default "404 Not Found" page, which
+# is what it is doing today.
+ErrorDocument 404 /404.html
+
+# ── Canonical host ──────────────────────────────────────────────────────────
+# https://davidfagan.co.uk/ currently serves 200 rather than redirecting, so
+# every page is reachable on two hostnames. The canonical <link> tags handle
+# the SEO side on their own; this makes it a real redirect.
+# Check the existing file first — if a www redirect is already present, do not
+# add a second one.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^davidfagan\.co\.uk$ [NC]
+  RewriteRule ^(.*)$ https://www.davidfagan.co.uk/$1 [R=301,L]
+</IfModule>
+
+# ── Compression ─────────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ── Cache headers ───────────────────────────────────────────────────────────
+# Images and fonts are content-addressed by filename here (img42.jpg never
+# changes meaning), so they can be cached hard. CSS and JS are NOT fingerprinted
+# in this project, so they get a short cache to keep deploys visible.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/gif               "access plus 1 year"
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType image/x-icon            "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType text/css                "access plus 1 hour"
+  ExpiresByType application/javascript  "access plus 1 hour"
+  ExpiresByType text/html               "access plus 0 seconds"
+</IfModule>
+
+# ── Security headers ────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  # Stop browsers guessing a different content type to the one sent.
+  Header always set X-Content-Type-Options "nosniff"
+  # Send the origin only on cross-origin requests, full URL same-origin.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # This site embeds others (YouTube, Cal.com) but is never embedded itself.
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # No page here uses these, so switch them off rather than leave them open.
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+
+  # HSTS is deliberately left commented out. Once a browser has seen it, it
+  # will refuse plain http for this host for the whole max-age, so only enable
+  # it when you are certain every subdomain is served over https and you intend
+  # to keep it that way.
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# ── Hygiene ─────────────────────────────────────────────────────────────────
+Options -Indexes
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>

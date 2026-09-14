@@ -257,15 +257,17 @@
       var img = item.querySelector('.work-item__img-wrap img');
       if (!img) return;
 
-      // Preload all images in this pool so crossfades don't flicker
-      pool.forEach(function (src) {
-        var preload = new Image();
-        preload.src = src;
-      });
-
       // Pick a random starting image so each page visit looks different
       var currentIndex = Math.floor(Math.random() * pool.length);
       img.src = pool[currentIndex];
+
+      // Only the NEXT image is preloaded, and only once the first swap is due.
+      // Preloading every pool image up front pulled roughly 14 MB on load for
+      // pictures most visitors never saw.
+      function preload(src) {
+        var i = new Image();
+        i.src = src;
+      }
 
       // Stagger start times so all three items don't swap simultaneously
       // Item 0: starts at 0ms, Item 1: +1500ms, Item 2: +3000ms
@@ -278,6 +280,8 @@
           do {
             nextIndex = Math.floor(Math.random() * pool.length);
           } while (nextIndex === currentIndex);
+
+          preload(pool[nextIndex]);
 
           // Crossfade: fade out → swap src → fade in
           // Uses GSAP opacity tween (separate from the transform/parallax)
@@ -360,10 +364,29 @@
     });
   }
 
-  /* ─── Forms: AJAX submit via Formspree ──────────────────── */
+  /* ─── Forms: validation, submit state, error handling ───── */
   function initForms() {
     handleForm('bookForm', 'bookSuccess');
     handleForm('contactForm', 'contactSuccess');
+  }
+
+  // Messages say what to do, not just that something is wrong.
+  function messageFor(field) {
+    const label = (field.labels && field.labels[0] ? field.labels[0].textContent : field.name)
+      .replace(/\s*\(optional\)\s*/i, '').trim().toLowerCase();
+    const v = field.validity;
+    if (v.valueMissing) {
+      return field.tagName === 'SELECT'
+        ? 'Please choose a ' + label + '.'
+        : 'Please enter your ' + label + '.';
+    }
+    if (v.typeMismatch && field.type === 'email') {
+      return 'That does not look like an email address. Check for a missing “@” or a typo in the domain.';
+    }
+    if (v.tooShort) {
+      return 'Please give a little more detail — at least ' + field.minLength + ' characters.';
+    }
+    return field.validationMessage || 'Please check this field.';
   }
 
   function handleForm(formId, successId) {
@@ -371,33 +394,85 @@
     const success = document.getElementById(successId);
     if (!form || !success) return;
 
-    // Don't submit if Formspree ID hasn't been set yet
-    const action = form.getAttribute('action') || '';
-    if (action.includes('YOUR_FORMSPREE_ID')) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        success.textContent = '⚠️  Formspree not yet configured — see code comments.';
-        success.classList.add('visible');
-      });
-      return;
+    const fields = Array.prototype.slice.call(
+      form.querySelectorAll('input:not([type=hidden]):not([name="_gotcha"]), select, textarea')
+    );
+
+    // Build one error node per field, wired up with aria-describedby so screen
+    // readers announce the message as part of the field itself.
+    fields.forEach(function (field) {
+      if (!field.id) return;
+      const err = document.createElement('p');
+      err.className = 'form-error';
+      err.id = field.id + 'Error';
+      field.insertAdjacentElement('afterend', err);
+    });
+
+    // One shared region for failures that are not about a single field.
+    const status = document.createElement('div');
+    status.className = 'form-status';
+    status.setAttribute('role', 'alert');
+    form.querySelector('button[type="submit"]').insertAdjacentElement('afterend', status);
+
+    function errorNode(field) { return document.getElementById(field.id + 'Error'); }
+
+    function showError(field) {
+      const node = errorNode(field);
+      if (!node) return;
+      node.textContent = messageFor(field);
+      node.classList.add('visible');
+      field.setAttribute('aria-invalid', 'true');
+      field.setAttribute('aria-describedby', node.id);
     }
+
+    function clearError(field) {
+      const node = errorNode(field);
+      if (node) { node.textContent = ''; node.classList.remove('visible'); }
+      field.removeAttribute('aria-invalid');
+      field.removeAttribute('aria-describedby');
+    }
+
+    // Validate on blur, but only re-validate on input once a field has already
+    // errored — so nobody is told they are wrong while still typing.
+    fields.forEach(function (field) {
+      field.addEventListener('blur', function () {
+        if (field.value !== '' || field.required) {
+          field.checkValidity() ? clearError(field) : showError(field);
+        }
+      });
+      field.addEventListener('input', function () {
+        if (field.getAttribute('aria-invalid') === 'true' && field.checkValidity()) clearError(field);
+      });
+    });
+
+    let submitting = false;
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
+      if (submitting) return;            // guard against double submission
 
-      // Native validation is opted out of via novalidate, so check explicitly —
-      // otherwise an empty or malformed form was posted straight to Formspree.
-      if (!form.checkValidity()) {
-        form.reportValidity();
+      status.classList.remove('visible');
+      status.textContent = '';
+
+      // The form is novalidate, so validation is ours to do. Show every problem
+      // at once, then move focus to the first one.
+      const invalid = fields.filter(function (f) { return !f.checkValidity(); });
+      fields.forEach(function (f) { if (f.checkValidity()) clearError(f); });
+      if (invalid.length) {
+        invalid.forEach(showError);
+        invalid[0].focus();
         return;
       }
 
       const btn = form.querySelector('button[type="submit"]');
       if (!btn) return;
       const original = btn.textContent;
-      success.classList.remove('visible'); // clear any message from a previous send
-      btn.textContent = 'Sending…';
+
+      submitting = true;
       btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.textContent = 'Sending…';
+      success.classList.remove('visible');
 
       try {
         const res = await fetch(form.action, {
@@ -407,22 +482,47 @@
         });
 
         if (res.ok) {
+          // Success: clear the form and leave the confirmation in place. The
+          // button is NOT restored, so the same message cannot be sent twice
+          // by accident.
           form.reset();
+          fields.forEach(clearError);
           success.classList.add('visible');
           btn.textContent = 'Sent ✓';
-        } else {
-          btn.textContent = 'Error — try again';
-          btn.disabled = false;
+          success.focus && success.setAttribute('tabindex', '-1');
+          success.focus && success.focus();
+          return;
         }
-      } catch {
-        btn.textContent = 'Error — try again';
-        btn.disabled = false;
-      }
 
-      setTimeout(function () {
-        btn.textContent = original;
-        btn.disabled = false;
-      }, 4000);
+        // Formspree returns field-level problems in a JSON body. Surface them
+        // rather than a generic failure, and never show a raw status code.
+        let detail = '';
+        try {
+          const body = await res.json();
+          if (body && Array.isArray(body.errors) && body.errors.length) {
+            detail = body.errors.map(function (x) { return x.message; }).join(' ');
+          }
+        } catch (_) { /* not JSON — fall through to the generic message */ }
+
+        status.innerHTML = (detail || 'Your message could not be sent just now.') +
+          ' Your details are still here, so you can try again — or email ' +
+          '<a href="mailto:hello@davidfagan.co.uk">hello@davidfagan.co.uk</a> directly.';
+        status.classList.add('visible');
+      } catch (_) {
+        // Network-level failure: offline, DNS, blocked request.
+        status.innerHTML = 'Could not reach the server — check your connection and try again. ' +
+          'Your details are still here. You can also email ' +
+          '<a href="mailto:hello@davidfagan.co.uk">hello@davidfagan.co.uk</a>.';
+        status.classList.add('visible');
+      } finally {
+        // Only re-enable on failure; the success path returns above.
+        if (!success.classList.contains('visible')) {
+          submitting = false;
+          btn.disabled = false;
+          btn.removeAttribute('aria-busy');
+          btn.textContent = original;
+        }
+      }
     });
   }
 
@@ -432,45 +532,71 @@
     if (el) el.textContent = new Date().getFullYear();
   }
 
-  /* ─── Cal.com embed ─────────────────────────────────────── */
-  // Only index.html and services.html contain #cal-embed. Without this guard
-  // every page pulled in the Cal.com loader script and then asked it to mount
-  // into an element that does not exist.
+  /* ─── Cal.com embed (click to load) ─────────────────────── */
+  // The embed sets third-party cookies and pulls a large bundle the moment it
+  // initialises, so it stays unloaded until the visitor presses the button.
+  // That keeps the page free of pre-consent third-party cookies and takes a
+  // sizeable chunk off the initial load of the two pages that use it.
   function initCalEmbed() {
-    if (!document.getElementById('cal-embed')) return;
+    const host = document.getElementById('cal-embed');
+    const btn  = document.getElementById('calLoad');
+    if (!host || !btn) return;
 
-    (function (C, A, L) {
-      let p = function (a, ar) { a.q.push(ar); };
-      let d = C.document;
-      C.Cal = C.Cal || function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () { p(api, arguments); };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          typeof namespace === 'string' ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
-          return;
-        }
-        p(cal, ar);
-      };
-    })(window, 'https://app.cal.eu/embed/embed.js', 'init');
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      btn.textContent = 'Loading calendar…';
 
-    Cal('init', { origin: 'https://cal.eu' });
-    Cal('inline', {
-      elementOrSelector: '#cal-embed',
-      calLink: 'dfdesign',
-      layout: 'month_view',
-    });
-    Cal('ui', {
-      styles: { branding: { brandColor: '#9f5ec2' } },
-      hideEventTypeDetails: false,
+      // Cal mounts into this element, so clear the placeholder first.
+      host.classList.remove('cal-consent');
+      host.innerHTML = '';
+      host.setAttribute('aria-busy', 'true');
+
+      (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+          let cal = C.Cal;
+          let ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement('script')).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () { p(api, arguments); };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            typeof namespace === 'string' ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, 'https://app.cal.eu/embed/embed.js', 'init');
+
+      Cal('init', { origin: 'https://cal.eu' });
+      Cal('inline', {
+        elementOrSelector: '#cal-embed',
+        calLink: 'dfdesign',
+        layout: 'month_view',
+      });
+      Cal('ui', {
+        styles: { branding: { brandColor: '#9f5ec2' } },
+        hideEventTypeDetails: false,
+      });
+
+      // If the embed never paints — blocked, offline, Cal.com down — say so
+      // rather than leaving an empty box behind.
+      setTimeout(function () {
+        host.removeAttribute('aria-busy');
+        if (!host.querySelector('iframe')) {
+          host.innerHTML = '<div class="cal-consent__inner">' +
+            '<p>The calendar could not be loaded.</p>' +
+            '<span>Please use the request form instead, or email ' +
+            '<a href="mailto:hello@davidfagan.co.uk">hello@davidfagan.co.uk</a>.</span></div>';
+          host.classList.add('cal-consent');
+        }
+      }, 8000);
     });
   }
 

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — David Fagan</title>
+
+  <meta name="description" content="That page could not be found on davidfagan.co.uk. Use the links here to get back to the portfolio, services or contact details.">
+  <meta name="author" content="David Fagan">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#06060d">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=3ewjOvAnno">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png?v=3ewjOvAnno">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png?v=3ewjOvAnno">
+  <link rel="manifest" href="/favicon/site.webmanifest?v=3ewjOvAnno">
+  <link rel="shortcut icon" href="/favicon/favicon.ico?v=3ewjOvAnno">
+
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+  <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+  <!-- Absolute paths throughout: this page is served for unknown URLs at any
+       depth, so relative asset paths would resolve against the wrong folder. -->
+  <link rel="stylesheet" href="/assets/css/2026.css">
+
+  <style>
+    /* Centre the message in the viewport, minus the fixed nav. */
+    .err { min-height: calc(100vh - var(--nav-h)); display: grid; place-items: center;
+           padding: calc(var(--nav-h) + 3rem) 1.5rem 4rem; text-align: center; position: relative; }
+    .err__bg { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+               background:
+                 radial-gradient(ellipse 70% 55% at 60% 35%, rgba(62, 64, 148, 0.5) 0%, transparent 60%),
+                 radial-gradient(ellipse 50% 45% at 25% 75%, rgba(149, 61, 117, 0.4) 0%, transparent 55%),
+                 var(--bg); }
+    .err__code { font-size: clamp(5rem, 18vw, 10rem); font-weight: 900; line-height: 1;
+                 letter-spacing: -0.04em; margin: 0 0 0.5rem;
+                 background: var(--grad-text); -webkit-background-clip: text;
+                 background-clip: text; color: transparent; }
+    .err__heading { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 800;
+                    letter-spacing: -0.02em; margin: 0 0 1rem; }
+    .err__body { color: var(--text-muted); max-width: 46ch; margin: 0 auto 2rem; }
+    .err__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+    .err__links { margin-top: 3rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem;
+                  justify-content: center; font-size: 0.95rem; }
+    .err__links a { color: var(--text-muted); text-decoration: none; }
+    .err__links a:hover, .err__links a:focus-visible { color: var(--text); }
+  </style>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo" aria-label="David Fagan — home">
+      <span class="nav__logo-name">David Fagan</span>
+      <span class="nav__logo-dot" aria-hidden="true"></span>
+    </a>
+    <a href="/#contact" class="nav__cta nav__cta--mobile">Get in touch</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/work/">Tools</a></li>
+      <li><a href="/#book">Book</a></li>
+      <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+  <section class="err">
+    <div class="err__bg" aria-hidden="true"></div>
+    <div>
+      <p class="err__code" aria-hidden="true">404</p>
+      <h1 class="err__heading">This page could not be found</h1>
+      <p class="err__body">
+        The page you were looking for does not exist, or it has been moved or
+        renamed. Nothing is broken on your end.
+      </p>
+      <div class="err__actions">
+        <a href="/" class="btn btn--primary">Back to the homepage</a>
+        <a href="/#contact" class="btn btn--ghost">Report a broken link</a>
+      </div>
+      <nav class="err__links" aria-label="Popular pages">
+        <a href="/services.html">Services</a>
+        <a href="/photos.html">Photography</a>
+        <a href="/designs.html">Graphic Design</a>
+        <a href="/videos.html">Videos</a>
+        <a href="/work/">Work Tools</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <p class="footer__name">David Fagan</p>
+      <p class="footer__copy">
+        &copy; <span id="footerYear">2026</span> davidfagan.co.uk &middot; Glasgow, Scotland
+      </p>
+      <nav class="footer__links" aria-label="Footer navigation">
+        <a href="/work/">Work Tools</a>
+        <a href="https://github.com/fagand" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/assets/docs/privacy/">Privacy</a>
+        <a href="/assets/docs/cookies/">Cookies</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/2026.js" defer></script>
+
+</body>
+</html>

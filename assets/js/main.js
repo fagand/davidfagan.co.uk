@@ -85,7 +85,13 @@ changeWindowScheme();
         var $sidebar_a = $sidebar.find('a');
 
         $sidebar_a
-            .addClass('scrolly')
+            // Only same-page anchors can be scrolly targets. Adding the class
+            // to every link made scrolly() try to use hrefs like "/#intro" as
+            // jQuery selectors, which threw on every page load.
+            .filter(function () { return ($(this).attr('href') || '').charAt(0) === '#'; })
+            .addClass('scrolly');
+
+        $sidebar_a
             .on('click', function () {
 
                 var $this = $(this);
@@ -106,8 +112,15 @@ changeWindowScheme();
             .each(function () {
 
                 var $this = $(this),
-                    id = $this.attr('href'),
-                    $section = $(id);
+                    id = $this.attr('href');
+
+                // Only same-page anchors name a section. Without this check,
+                // a link like "/" or "/#work" was passed to jQuery as a
+                // selector and threw a Sizzle syntax error on every load.
+                if (!id || id.charAt(0) !== '#' || id.length < 2)
+                    return;
+
+                var $section = $(id);
 
                 // No section for this link? Bail.
                 if ($section.length < 1)

@@ -11,10 +11,23 @@
   <meta name="keywords" content="David Fagan, davidfagan, web developer, graphic designer, photographer, Glasgow, Scotland, freelance">
   <meta name="author" content="David Fagan">
   <meta property="og:title" content="David Fagan — Web Developer · Designer · Photographer">
-  <meta property="og:url" content="https://www.davidfagan.co.uk">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.davidfagan.co.uk/images/metagif.gif">
-  <meta property="og:description" content="Web developer, graphic designer, and photographer based in Glasgow, Scotland.">
+  <link rel="canonical" href="https://www.davidfagan.co.uk/">
+
+  <meta property="og:site_name" content="David Fagan">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://www.davidfagan.co.uk/">
+  <meta property="og:description" content="David Fagan is a web developer, graphic designer, and photographer based in Glasgow, Scotland. Available for commissions.">
+  <meta property="og:image" content="https://www.davidfagan.co.uk/images/og/og-home.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The davidfagan.co.uk homepage: the words Design. Code. Capture. over a dark purple gradient.">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="David Fagan — Web Developer · Designer · Photographer">
+  <meta name="twitter:description" content="David Fagan is a web developer, graphic designer, and photographer based in Glasgow, Scotland. Available for commissions.">
+  <meta name="twitter:image" content="https://www.davidfagan.co.uk/images/og/og-home.jpg">
+  <meta name="twitter:image:alt" content="The davidfagan.co.uk homepage: the words Design. Code. Capture. over a dark purple gradient.">
   <meta name="theme-color" content="#06060d">
 
   <!-- Favicons -->
@@ -50,6 +63,8 @@
 
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <!-- ══════════════════════════════════════════════════════
      NAV
 ══════════════════════════════════════════════════════ -->
@@ -59,6 +74,8 @@
       <span class="nav__logo-name">David Fagan</span>
       <span class="nav__logo-dot" aria-hidden="true"></span>
     </a>
+
+    <a href="#contact" class="nav__cta nav__cta--mobile">Get in touch</a>
 
     <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -74,6 +91,8 @@
     </ul>
   </div>
 </nav>
+
+<main id="main">
 
 
 <!-- ══════════════════════════════════════════════════════
@@ -250,7 +269,7 @@
 
     <a href="designs.html" class="work-item reveal-up" data-delay="0" aria-label="View graphic design portfolio">
       <div class="work-item__img-wrap">
-        <img src="images/designs/new/2.png" alt="Graphic Design portfolio preview" loading="lazy">
+        <img src="images/designs/new/2.png" alt="Graphic Design portfolio preview" loading="lazy" width="1080" height="1350" srcset="images/designs/new/thumb/2.jpg 1000w, images/designs/new/2.png 1080w" sizes="(max-width: 900px) 100vw, 33vw">
         <div class="work-item__overlay" aria-hidden="true"><span>View Designs →</span></div>
       </div>
       <div class="work-item__meta">
@@ -261,7 +280,7 @@
 
     <a href="photos.html" class="work-item reveal-up" data-delay="1" aria-label="View photography portfolio">
       <div class="work-item__img-wrap">
-        <img src="images/photos/img42.jpg" alt="Photography portfolio preview" loading="lazy">
+        <img src="images/photos/thumb/img42.jpg" alt="Photography portfolio preview" loading="lazy" width="768" height="1024">
         <div class="work-item__overlay" aria-hidden="true"><span>View Photos →</span></div>
       </div>
       <div class="work-item__meta">
@@ -272,7 +291,7 @@
 
     <a href="videos.html" class="work-item reveal-up" data-delay="2" aria-label="View videography portfolio">
       <div class="work-item__img-wrap">
-        <img src="darkimages/pic01.jpg" alt="Videography portfolio preview" loading="lazy">
+        <img src="darkimages/pic01.jpg" alt="Videography portfolio preview" loading="lazy" width="1280" height="853" srcset="darkimages/thumb/pic01.jpg 1000w, darkimages/pic01.jpg 1280w" sizes="(max-width: 900px) 100vw, 33vw">
         <div class="work-item__overlay" aria-hidden="true"><span>View Videos →</span></div>
       </div>
       <div class="work-item__meta">
@@ -306,8 +325,22 @@
       <!-- To enable: see the commented block in assets/js/2026.js          -->
       <div class="book__calendar reveal-left">
         <div class="book__calendar-inner">
-          <div id="cal-embed">
-            
+          <!-- Click-to-load: the Cal.com embed sets third-party cookies and
+               pulls a large bundle as soon as it initialises, so it is not
+               loaded until the visitor asks for it. See initCalEmbed() in
+               assets/js/2026.js. -->
+          <div id="cal-embed" class="cal-consent">
+            <div class="cal-consent__inner">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+              <p>Live booking calendar</p>
+              <span>Loaded from Cal.com, which sets its own cookies. Nothing is
+                    loaded from them until you choose to open it.</span>
+              <button type="button" class="btn btn--primary" id="calLoad">Load the calendar</button>
+              <span class="cal-consent__alt">Prefer not to? Use the request form instead.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -333,7 +366,7 @@
               novalidate>
 
           <!-- Honeypot: hidden from humans, bots fill it, Formspree discards those submissions -->
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <div class="form-group">
             <label for="bookName">Your name</label>
@@ -443,7 +476,7 @@
               method="POST"
               novalidate>
 
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <div class="form-group">
             <label for="contactName">Name</label>
@@ -475,6 +508,8 @@
   </div>
 </section>
 
+
+</main>
 
 <!-- ══════════════════════════════════════════════════════
      FOOTER
