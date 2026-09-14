@@ -1,30 +1,46 @@
 # davidfagan.co.uk — Apache configuration
 #
 # ⚠ NOT DEPLOYED AUTOMATICALLY. The .cpanel.yml deploy copies `*`, which does
-# not match dotfiles, so this file is version-controlled here but must be
-# merged into the server's existing /home/fagancom/davidfagan.co.uk/.htaccess
-# by hand. The server already performs an http -> https -> www redirect, which
-# means it HAS an .htaccess already: read it before pasting anything below, or
-# you risk duplicating or contradicting rules that are already working.
+# not match dotfiles. This file is the version-controlled copy; paste it over
+# /home/fagancom/davidfagan.co.uk/.htaccess in cPanel's File Manager.
+#
+# Everything that was already on the server is preserved below, in its original
+# order. New blocks are marked ADDED.
 
-# ── Custom error pages ──────────────────────────────────────────────────────
-# Without this the server returns Apache's default "404 Not Found" page, which
-# is what it is doing today.
+RewriteOptions inherit
+RewriteEngine On
+
+# Existing: http (port 80) -> https + www.
+# Changed R to R=301. It was sending 302 (temporary), which tells search
+# engines not to consolidate ranking signals onto the https www URL. If you
+# ever need to undo this, note that browsers cache a 301 aggressively.
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.davidfagan.co.uk/$1 [R=301,L]
+
+# ADDED: https without www -> https with www.
+# The rule above only fires on port 80, so https://davidfagan.co.uk/ currently
+# serves a 200 instead of redirecting — every page is reachable on two
+# hostnames. This closes that. No loop: it only fires when the host has no www.
+RewriteCond %{HTTP_HOST} ^davidfagan\.co\.uk$ [NC]
+RewriteRule ^(.*)$ https://www.davidfagan.co.uk/$1 [R=301,L]
+
+# ADDED: serve the branded 404 page.
+# Without this Apache returns its own bare "404 Not Found", which is what the
+# site does today. 404.html ships with the normal deploy.
 ErrorDocument 404 /404.html
 
-# ── Canonical host ──────────────────────────────────────────────────────────
-# https://davidfagan.co.uk/ currently serves 200 rather than redirecting, so
-# every page is reachable on two hostnames. The canonical <link> tags handle
-# the SEO side on their own; this makes it a real redirect.
-# Check the existing file first — if a www redirect is already present, do not
-# add a second one.
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteCond %{HTTP_HOST} ^davidfagan\.co\.uk$ [NC]
-  RewriteRule ^(.*)$ https://www.davidfagan.co.uk/$1 [R=301,L]
-</IfModule>
+# Existing: keep 403.shtml readable even for a denied IP.
+# Note: 403.shtml currently returns 404 — the file is not on the server, so
+# this block guards nothing. Harmless, and left in place in case you add one.
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
 
-# ── Compression ─────────────────────────────────────────────────────────────
+# Existing: blocked address.
+deny from 90.251.99.185
+
+# ADDED: compression. Text assets only; images are already compressed.
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
   AddOutputFilterByType DEFLATE application/javascript application/x-javascript
@@ -32,10 +48,10 @@ ErrorDocument 404 /404.html
   AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
 
-# ── Cache headers ───────────────────────────────────────────────────────────
-# Images and fonts are content-addressed by filename here (img42.jpg never
-# changes meaning), so they can be cached hard. CSS and JS are NOT fingerprinted
-# in this project, so they get a short cache to keep deploys visible.
+# ADDED: cache headers.
+# Image and font filenames are stable here (img42.jpg never changes meaning),
+# so they cache hard. CSS and JS are NOT fingerprinted in this project, so they
+# get an hour — long enough to help, short enough that a deploy shows up.
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/jpeg              "access plus 1 year"
@@ -50,26 +66,24 @@ ErrorDocument 404 /404.html
   ExpiresByType text/html               "access plus 0 seconds"
 </IfModule>
 
-# ── Security headers ────────────────────────────────────────────────────────
+# ADDED: security headers.
 <IfModule mod_headers.c>
-  # Stop browsers guessing a different content type to the one sent.
   Header always set X-Content-Type-Options "nosniff"
-  # Send the origin only on cross-origin requests, full URL same-origin.
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  # This site embeds others (YouTube, Cal.com) but is never embedded itself.
   Header always set X-Frame-Options "SAMEORIGIN"
-  # No page here uses these, so switch them off rather than leave them open.
-  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
-
-  # HSTS is deliberately left commented out. Once a browser has seen it, it
-  # will refuse plain http for this host for the whole max-age, so only enable
-  # it when you are certain every subdomain is served over https and you intend
-  # to keep it that way.
+  # HSTS is left off on purpose. Once a browser sees it, it refuses plain http
+  # for this host for the whole max-age, so turn it on only when you are sure
+  # every subdomain is https and will stay that way.
   # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 </IfModule>
 
-# ── Hygiene ─────────────────────────────────────────────────────────────────
+# ADDED: stop directory listings where a folder has no index file.
 Options -Indexes
-<FilesMatch "^\.">
-  Require all denied
-</FilesMatch>
+
+# Deliberately NOT blocking dotfiles here. The deploy never copies them, and a
+# broad dotfile rule risks interfering with /.well-known/, which AutoSSL uses
+# to renew the certificate.
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# This domain inherits the “PHP” package.
+# php -- END cPanel-generated handler, do not edit
