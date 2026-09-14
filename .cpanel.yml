@@ -1,0 +1,22 @@
+---
+# cPanel Git Version Control auto-deploy for davidfagan.co.uk.
+#
+# This runs when you click "Deploy HEAD Commit" (or "Update from Remote" then
+# "Deploy") on this repository's page under cPanel -> Git Version Control.
+# It copies the checked-out branch over the live document root.
+#
+# The copy is deliberately additive and never deletes. The document root also
+# holds independently deployed applications that are NOT part of this repo:
+#
+#   /work/          workRoot, and under it reportwriter, bulletin, seating-plan
+#   /vistora/       vistora
+#
+# An rsync --delete here would wipe all of them on the first deploy, so do not
+# add one. Server-only files such as .htaccess are safe for the same reason:
+# the glob below does not match dotfiles, so .git and .gitignore stay out of
+# the document root too.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/fagancom/davidfagan.co.uk/
+    - /bin/mkdir -p "$DEPLOYPATH"
+    - /bin/cp -Rf * "$DEPLOYPATH"
