@@ -526,6 +526,27 @@
     });
   }
 
+  /* ─── Analytics ─────────────────────────────────────────── */
+  // Cloudflare Web Analytics. Cookieless and no personal data, so it needs no
+  // consent gate — unlike anything Google-based, which would.
+  //
+  // TO ENABLE: paste the token from the Cloudflare dashboard below
+  // (Web Analytics -> Add a site -> Manage site -> copy the token from the
+  // snippet). Nothing loads while it is still the placeholder, so this is safe
+  // to leave as-is. Because every page loads this file, the token only has to
+  // go in this one place.
+  const CF_ANALYTICS_TOKEN = 'PASTE_TOKEN_HERE';
+
+  function initAnalytics() {
+    if (!CF_ANALYTICS_TOKEN || CF_ANALYTICS_TOKEN === 'PASTE_TOKEN_HERE') return;
+
+    const s = document.createElement('script');
+    s.defer = true;
+    s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    s.setAttribute('data-cf-beacon', JSON.stringify({ token: CF_ANALYTICS_TOKEN }));
+    document.body.appendChild(s);
+  }
+
   /* ─── Privacy settings (Google CMP revocation) ──────────── */
   // Google's CMP owns the consent UI; this only gives it a designed entry
   // point in the footer. The control stays hidden until the CMP confirms it
