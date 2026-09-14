@@ -526,6 +526,31 @@
     });
   }
 
+  /* ─── Privacy settings (Google CMP revocation) ──────────── */
+  // Google's CMP owns the consent UI; this only gives it a designed entry
+  // point in the footer. The control stays hidden until the CMP confirms it
+  // is present, so visitors outside its scope never see a dead button.
+  function initPrivacySettings() {
+    const btn = document.getElementById('privacySettings');
+    if (!btn) return;
+
+    window.googlefc = window.googlefc || {};
+    window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+    window.googlefc.callbackQueue.push({
+      CONSENT_DATA_READY: function () {
+        if (typeof window.googlefc.showRevocationMessage === 'function') {
+          btn.classList.add('is-available');
+        }
+      },
+    });
+
+    btn.addEventListener('click', function () {
+      if (window.googlefc && typeof window.googlefc.showRevocationMessage === 'function') {
+        window.googlefc.showRevocationMessage();
+      }
+    });
+  }
+
   /* ─── Footer year ───────────────────────────────────────── */
   function initFooterYear() {
     const el = document.getElementById('footerYear');
