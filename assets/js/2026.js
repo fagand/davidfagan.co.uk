@@ -7,21 +7,43 @@
 (function () {
   'use strict';
 
-  /* ─── GSAP Init ─────────────────────────────────────────── */
+  /* ─── Reduced motion ────────────────────────────────────── */
+  // Users who ask for reduced motion get the content, not the choreography.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ─── Fail-safe reveal ──────────────────────────────────── */
+  // .reveal-* elements start at opacity:0 in CSS and are only made visible by
+  // GSAP. If the CDN is blocked or slow to fail, that leaves the page blank —
+  // so clear the hidden state directly whenever GSAP will not be doing it.
+  function showAllReveals() {
+    document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right')
+      .forEach(function (el) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+  }
+
+  /* ─── Init ──────────────────────────────────────────────── */
+  // These never depend on GSAP, so run them as soon as the DOM is parsed
+  // rather than waiting on images and the CDN.
+  initNav();
+  initForms();
+  initFooterYear();
+  initMobileNav();
+  initCalEmbed();
+
   window.addEventListener('load', function () {
-    if (typeof gsap === 'undefined') return; // graceful no-op if CDN fails
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || reduceMotion) {
+      showAllReveals();   // graceful no-op if the CDN fails or motion is reduced
+      return;
+    }
 
     gsap.registerPlugin(ScrollTrigger);
 
     initHero();
     initRevealAnimations();
-    initServiceCards();
     initWorkItems();
     initWorkRotation();
-    initNav();
-    initForms();
-    initFooterYear();
-    initMobileNav();
   });
 
   /* ─── Hero: background zoom + content parallax exit ─────── */
@@ -162,33 +184,6 @@
     });
   }
 
-  /* ─── Services: stagger cards with scale ───────────────── */
-  function initServiceCards() {
-    const grid = document.querySelector('.services__grid');
-    if (!grid) return;
-
-    // Cards have reveal-up class (CSS: opacity:0, translateY(60px) scale(0.92)).
-    // initRevealAnimations() handles them per-card. This overrides with a grouped
-    // stagger for a more polished cascade. Uses gsap.to (not gsap.from) so it
-    // animates FROM current state TO visible — no risk of setting a hidden state
-    // that never gets cleared.
-    // To adjust stagger: 0.08 = faster cascade, 0.15 = slower cascade
-    const cards = grid.querySelectorAll('.service-card');
-    gsap.to(cards, {
-      y: 0,
-      scale: 1,
-      opacity: 1,
-      duration: 0.9,
-      stagger: 0.1,
-      ease: 'power4.out',
-      scrollTrigger: {
-        trigger: grid,
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-      },
-    });
-  }
-
   /* ─── Work: image parallax on scroll ────────────────────── */
   function initWorkItems() {
     // BEFORE: yPercent: -8 (barely visible)
@@ -244,7 +239,7 @@
         'images/photos/img29.jpg',
         'images/photos/img35.jpg',
         'images/photos/img40.jpg',
-        'images/photos/img43.jpg',
+        'images/photos/img42.jpg',
         'images/photos/img46.jpg',
       ],
       // ── Videography ─────────────────────────────────────
@@ -306,16 +301,26 @@
     });
   }
 
-  /* ─── Nav: show/hide & blur on scroll ───────────────────── */
+  /* ─── Nav: blur on scroll ───────────────────────────────── */
+  // A plain scroll listener rather than a ScrollTrigger, so the nav still
+  // styles itself correctly when the GSAP CDN is unavailable.
   function initNav() {
     const nav = document.getElementById('nav');
     if (!nav) return;
 
-    ScrollTrigger.create({
-      start: 80,
-      onEnter: function () { nav.classList.add('scrolled'); },
-      onLeaveBack: function () { nav.classList.remove('scrolled'); },
-    });
+    let ticking = false;
+    function update() {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
+
+    update();
   }
 
   /* ─── Mobile nav toggle ─────────────────────────────────── */
@@ -324,20 +329,35 @@
     const links  = document.getElementById('navLinks');
     if (!toggle || !links) return;
 
-    toggle.addEventListener('click', function () {
-      const open = links.classList.toggle('open');
+    function setOpen(open) {
+      links.classList.toggle('open', open);
       toggle.classList.toggle('open', open);
-      toggle.setAttribute('aria-expanded', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    toggle.addEventListener('click', function () {
+      setOpen(!links.classList.contains('open'));
     });
 
     // Close on link click
     links.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        links.classList.remove('open');
-        toggle.classList.remove('open');
-        document.body.style.overflow = '';
-      });
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && links.classList.contains('open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // The menu is a mobile-only overlay (CSS hides .nav__links above 720px).
+    // Without this, widening the window past the breakpoint left body scroll
+    // locked with no visible menu to close.
+    window.matchMedia('(min-width: 721px)').addEventListener('change', function (e) {
+      if (e.matches) setOpen(false);
     });
   }
 
@@ -365,8 +385,18 @@
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
+
+      // Native validation is opted out of via novalidate, so check explicitly —
+      // otherwise an empty or malformed form was posted straight to Formspree.
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
       const btn = form.querySelector('button[type="submit"]');
+      if (!btn) return;
       const original = btn.textContent;
+      success.classList.remove('visible'); // clear any message from a previous send
       btn.textContent = 'Sending…';
       btn.disabled = true;
 
@@ -404,46 +434,45 @@
   }
 
   /* ─── Cal.com embed ─────────────────────────────────────── */
+  // Only index.html and services.html contain #cal-embed. Without this guard
+  // every page pulled in the Cal.com loader script and then asked it to mount
+  // into an element that does not exist.
+  function initCalEmbed() {
+    if (!document.getElementById('cal-embed')) return;
 
-  /*  TO ENABLE CALENDAR BOOKING:
-    1. Go to https://cal.com and create a free account
-    2. Create your event types (e.g. "Photography Session", "Web Consultation")
-    3. Replace 'YOUR_CAL_USERNAME' below with your Cal.com username
-    4. Uncomment the block below and remove the .cal-placeholder div in index.html */
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          typeof namespace === 'string' ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, 'https://app.cal.eu/embed/embed.js', 'init');
 
-  (function (C, A, L) {
-    let p = function (a, ar) { a.q.push(ar); };
-    let d = C.document;
-    C.Cal = C.Cal || function () {
-      let cal = C.Cal;
-      let ar = arguments;
-      if (!cal.loaded) {
-        cal.ns = {};
-        cal.q = cal.q || [];
-        d.head.appendChild(d.createElement('script')).src = A;
-        cal.loaded = true;
-      }
-      if (ar[0] === L) {
-        const api = function () { p(api, arguments); };
-        const namespace = ar[1];
-        api.q = api.q || [];
-        typeof namespace === 'string' ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
-        return;
-      }
-      p(cal, ar);
-    };
-  })(window, 'https://app.cal.eu/embed/embed.js', 'init');
-
-  Cal('init', { origin: 'https://cal.eu' });
-  Cal('inline', {
-    elementOrSelector: '#cal-embed',
-    calLink: 'dfdesign',
-    layout: 'month_view',
-  });
-  Cal('ui', {
-    styles: { branding: { brandColor: '#9f5ec2' } },
-    hideEventTypeDetails: false,
-  });
-
+    Cal('init', { origin: 'https://cal.eu' });
+    Cal('inline', {
+      elementOrSelector: '#cal-embed',
+      calLink: 'dfdesign',
+      layout: 'month_view',
+    });
+    Cal('ui', {
+      styles: { branding: { brandColor: '#9f5ec2' } },
+      hideEventTypeDetails: false,
+    });
+  }
 
 })();

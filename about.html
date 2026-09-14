@@ -22,6 +22,14 @@
   <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/2026.css">
+
+  <!-- Scroll-reveal elements are hidden in CSS and revealed by JS.
+       With JS off, show them immediately rather than a blank page. -->
+  <noscript>
+    <style>
+      .reveal-up, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
   <link rel="stylesheet" href="assets/css/pages.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -44,6 +52,7 @@
       <li><a href="/#about" aria-current="page">About</a></li>
       <li><a href="/services.html">Services</a></li>
       <li><a href="/#work">Work</a></li>
+      <li><a href="/work/">Tools</a></li>
       <li><a href="/#book">Book</a></li>
       <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
     </ul>
@@ -147,9 +156,10 @@
       <p class="footer__name">David Fagan</p>
       <p class="footer__copy">&copy; <span id="footerYear"></span> davidfagan.co.uk &middot; Glasgow, Scotland</p>
       <nav class="footer__links" aria-label="Footer navigation">
-        <a href="https://github.com/davidfagan" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="assets/docs/privacy/index.html">Privacy</a>
-        <a href="assets/docs/cookies/index.html">Cookies</a>
+        <a href="/work/">Work Tools</a>
+        <a href="https://github.com/fagand" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/assets/docs/privacy/">Privacy</a>
+        <a href="/assets/docs/cookies/">Cookies</a>
       </nav>
     </div>
   </div>

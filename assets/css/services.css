@@ -82,6 +82,32 @@
   color: var(--text-muted);
 }
 
+.svc-list li { align-items: flex-start; }
+.svc-list li::before { margin-top: 0.55em; }
+
+.svc-list a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(159, 94, 194, 0.45);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.svc-list a:hover,
+.svc-list a:focus-visible {
+  color: var(--accent-1);
+  border-bottom-color: var(--accent-1);
+}
+
+.svc-detail__body a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(159, 94, 194, 0.6);
+}
+
+.svc-detail__body a:hover { color: var(--accent-1); }
+
 .svc-list li::before {
   content: '';
   display: block;

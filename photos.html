@@ -9,7 +9,7 @@
   <meta property="og:title" content="Photography — David Fagan">
   <meta property="og:url" content="https://www.davidfagan.co.uk/photos.html">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.davidfagan.co.uk/images/photos/img43.jpg">
+  <meta property="og:image" content="https://www.davidfagan.co.uk/images/photos/img42.jpg">
   <meta name="theme-color" content="#06060d">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=3ewjOvAnno">
@@ -23,6 +23,14 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
   <link rel="stylesheet" href="assets/css/2026.css">
+
+  <!-- Scroll-reveal elements are hidden in CSS and revealed by JS.
+       With JS off, show them immediately rather than a blank page. -->
+  <noscript>
+    <style>
+      .reveal-up, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
   <link rel="stylesheet" href="assets/css/pages.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -59,6 +67,7 @@
       <li><a href="/#about">About</a></li>
       <li><a href="/services.html">Services</a></li>
       <li><a href="/#work" aria-current="page">Work</a></li>
+      <li><a href="/work/">Tools</a></li>
       <li><a href="/#book">Book</a></li>
       <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
     </ul>
@@ -97,11 +106,6 @@
 
     <a href="images/photos/img49.jpg" class="masonry-item glightbox" data-gallery="photos">
       <img src="images/photos/img49.jpg" alt="Photography" loading="eager">
-      <div class="masonry-item__overlay"><span>View full size →</span></div>
-    </a>
-
-    <a href="images/photos/img43.jpg" class="masonry-item glightbox" data-gallery="photos">
-      <img src="images/photos/img43.jpg" alt="Photography" loading="lazy">
       <div class="masonry-item__overlay"><span>View full size →</span></div>
     </a>
 
@@ -347,9 +351,10 @@
       <p class="footer__name">David Fagan</p>
       <p class="footer__copy">&copy; <span id="footerYear"></span> davidfagan.co.uk &middot; Glasgow, Scotland</p>
       <nav class="footer__links" aria-label="Footer navigation">
-        <a href="https://github.com/davidfagan" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="assets/docs/privacy/index.html">Privacy</a>
-        <a href="assets/docs/cookies/index.html">Cookies</a>
+        <a href="/work/">Work Tools</a>
+        <a href="https://github.com/fagand" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/assets/docs/privacy/">Privacy</a>
+        <a href="/assets/docs/cookies/">Cookies</a>
       </nav>
     </div>
   </div>

@@ -489,13 +489,6 @@ ul { list-style: none; }
 
 .service-card:hover::before { opacity: 1; }
 
-.service-card--soon {
-  opacity: 0.7;
-  cursor: default;
-}
-
-.service-card--soon:hover { transform: none; box-shadow: none; }
-
 .service-card__icon {
   color: var(--accent-1);
   flex-shrink: 0;
@@ -897,7 +890,9 @@ input[type="date"] {
   will-change: transform, opacity;
 }
 
-/* Fallback for no-JS or reduced-motion: show everything immediately */
+/* Reduced motion: show everything immediately.
+ * The no-JS case is handled by the <noscript> block in each page's <head>,
+ * and a failed GSAP load is handled by showAllReveals() in 2026.js. */
 @media (prefers-reduced-motion: reduce) {
   .reveal-up,
   .reveal-left,
