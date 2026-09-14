@@ -231,7 +231,6 @@
       // A curated spread across the full photo library.
       // Add/remove img filenames to control which photos appear.
       [
-        'images/photos/img1.jpg',
         'images/photos/img5.jpg',
         'images/photos/img10.jpg',
         'images/photos/img15.jpg',
