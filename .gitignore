@@ -32,3 +32,7 @@ assets/.DS_Store
 assets/.DS_Store
 .DS_Store
 .claude/worktrees/infallible-chandrasekhar/
+
+# Server-generated PHP logs: PHP rewrites these, which dirties the cPanel clone and blocks deploys
+error_log
+**/error_log
